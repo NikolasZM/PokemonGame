@@ -5,9 +5,15 @@ class cuenta
 {
 
     public:
-        string nombre{" "};
-        string contraseña{" "};
-        int edad{0};
+        string nombre;
+        string contraseña;
+        int edad;
+
+        cuenta(){
+            nombre = " ";
+            contraseña = " ";
+            edad = 0;
+        }
 
         bool comprobarArchivo(string ubicacion){
             ifstream archivo(ubicacion);
@@ -166,6 +172,7 @@ int main()
                     cin.clear();
                     cin.ignore();
                     cout << "Solo valores numericos" << "\n";
+                    system("cls");
                 }else{
                     break;
                 }
