@@ -16,7 +16,7 @@ class cuenta
 
         void admin(){
             string nombreContraseña{"admin"};
-            string direccion{"admin/datos.txt"};
+            string direccion{"admin/datosCuenta.txt"};
 
             if (comprobarArchivo(direccion)){
                 return;
@@ -76,12 +76,15 @@ class cuenta
                 if( !cin.good() ){
                     cin.clear();
                     cin.ignore();
+                    cout << "Solo numeros\n";
+                    continue;
                 }
 
                 if (edad > 7){
                     break;
+                }else{
+                    cout << "Solo para mayores de 7 años" << "\n";
                 }
-                cout << "Solo para mayores de 7 años" << "\n";
             }
 
             ofstream datos(direccion1);
@@ -156,29 +159,30 @@ int main()
     int opt{0};
 
      while(true){
-                cout << "Ingrese su edad: ";
+                cout << "Ingrese:\n\t[0]Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>>";;
                 cin >> opt;
 
                 if( !cin.good() ){
                     cin.clear();
                     cin.ignore();
+                    cout << "Solo valores numericos" << "\n";
+                }else{
+                    break;
                 }
-                cout << "Solo valores numericos" << "\n";
             }
 
     cuenta inicio;
     inicio.admin();
 
-    cout << "Ingrese:\n\t[0] Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>>";
-    cin >> opt;
+    
 
     switch (opt)
     {
-    case 1:
-        inicio.crearCuenta();
-        break;
     case 0:
         inicio.login();
+        break;
+    case 1:
+        inicio.crearCuenta();
         break;
     default:
         return 0;
