@@ -42,8 +42,21 @@ class cuenta
 
             system("cls");
 
-            cout << "Ingrese su nombre: ";
-            cin >> nombre;
+            while(true){
+
+                cout << "Ingrese su nombre: ";
+                cin >> nombre;
+
+                crearCarpeta = "MD " + nombre;
+                direccion1 = nombre + "/datos.txt";
+                direccion2 = nombre + "/datosCuenta.txt";
+
+                if(system(crearCarpeta.c_str())){
+                    continue;
+                }else{
+                    break;
+                }
+            }
 
             while(true){
                 cout << "Ingrese su contraseña: ";
@@ -59,18 +72,17 @@ class cuenta
             while(true){
                 cout << "Ingrese su edad: ";
                 cin >> edad;
+
+                if( !cin.good() ){
+                    cin.clear();
+                    cin.ignore();
+                }
+
                 if (edad > 7){
                     break;
                 }
                 cout << "Solo para mayores de 7 años" << "\n";
             }
-
-
-            crearCarpeta = "MD " + nombre;
-            direccion1 = nombre + "/datos.txt";
-            direccion2 = nombre + "/datosCuenta.txt";
-
-            system(crearCarpeta.c_str());
 
             ofstream datos(direccion1);
             datos.close();
@@ -127,16 +139,37 @@ class cuenta
 
 };
 
+void imprimirDatos(){
+    string nombreArchivo = "DataBase.txt";
+	ifstream archivo(nombreArchivo.c_str());
+	string linea;
+	while (getline(archivo,linea)) {
+		cout << "Una linea: "<<linea<<"\n";
+	
+	}
+}
+
 int main()
 {
     system("cls");
 
     int opt{0};
 
+     while(true){
+                cout << "Ingrese su edad: ";
+                cin >> opt;
+
+                if( !cin.good() ){
+                    cin.clear();
+                    cin.ignore();
+                }
+                cout << "Solo valores numericos" << "\n";
+            }
+
     cuenta inicio;
     inicio.admin();
 
-    cout << "Ingrese:\n[0] Login\n[1]Crear Cuenta\n\n>>>>";
+    cout << "Ingrese:\n\t[0] Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>>";
     cin >> opt;
 
     switch (opt)
@@ -146,9 +179,9 @@ int main()
         break;
     case 0:
         inicio.login();
+        break;
     default:
         return 0;
     }
 
 }
-
