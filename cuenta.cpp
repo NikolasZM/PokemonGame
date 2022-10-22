@@ -1,6 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int perdirNum(int &opt, string texto){
+    while(true){
+        cout << texto;
+        cin >> opt;
+        if( !cin.good() ){
+            cin.clear();
+            cin.ignore();
+            cout << "Solo valores numericos" << "\n";
+            system("cls");
+        }else{
+            return opt;
+        }
+    }
+}
+
 class cuenta
 {
 
@@ -13,6 +28,16 @@ class cuenta
             nombre = " ";
             contraseña = " ";
             edad = 0;
+        }
+
+        void añadirTexto(string nombre){
+            ofstream usuarios;
+
+            usuarios.open("usuarios.txt", ios::app); 
+
+            usuarios << nombre << endl;  
+                
+            usuarios.close();
         }
 
         bool comprobarArchivo(string ubicacion){
@@ -64,6 +89,8 @@ class cuenta
                 }
             }
 
+            añadirTexto(nombre);
+
             while(true){
                 cout << "Ingrese su contraseña: ";
                 cin >> contraseña;
@@ -102,6 +129,7 @@ class cuenta
                 datosCuenta << contraseña << "\n";
 
             datosCuenta.close();
+
 
         }
 
@@ -146,47 +174,109 @@ class cuenta
 
         }
 
-};
+        bool compAdmin(){
+            if(nombre == "admin"){
+                return true;
+            }else{
+                return false;
+            }
+        }
 
-void imprimirDatos(){
-    string nombreArchivo = "DataBase.txt";
-	ifstream archivo(nombreArchivo.c_str());
-	string linea;
-	while (getline(archivo,linea)) {
-		cout << "Una linea: "<<linea<<"\n";
-	
-	}
-}
+        vector<string> mostrarCuentas(){
+            
+            int i{0};
+            vector<string> cuentas;
+            string l;
 
-int main()
-{
-    system("cls");
+            ifstream usuarios("usuarios.txt");
+            while(getline(usuarios, l)){
+                cuentas.push_back(l);
 
-    int opt{0};
+                cout << "[" << i+1 << "]" << cuentas[i] << "\n";
+                ++i;
+                
+            }
 
-     while(true){
-                cout << "Ingrese:\n\t[0]Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>>";;
-                cin >> opt;
+            return cuentas;
+
+        }
+
+        void eliminarCuentas(){
+            
+            vector<string> cuentas = mostrarCuentas();
+            int cuenta;
+            string borrar1;
+            string borrar2;
+            string aux;
+            string l;
+
+            while(true){
+                cout << "Escriba el numero de la cuenta que desea borrar: ";
+                cin >> cuenta;
 
                 if( !cin.good() ){
                     cin.clear();
                     cin.ignore();
                     cout << "Solo valores numericos" << "\n";
                     system("cls");
-                }else{
-                    break;
                 }
+
+                if(cuenta-1 < cuentas.size())
+                {
+                    borrar1 = "del " + cuentas[cuenta-1];
+                    borrar2 = "rmdir " + cuentas[cuenta-1];
+                    
+                    system(borrar1.c_str());
+                    system(borrar2.c_str());
+                    system("del usuarios.txt");
+                    
+
+                    cuentas.erase(cuentas.begin()+ cuenta - 1);
+
+                    cout <<"tamaño: "<< cuentas.size();
+
+                    for(int i{0}; i <= cuentas.size(); ++i){
+
+                        if((i == cuentas.size())&&(i != 0)){
+                            break;
+                        }    
+
+                        añadirTexto(cuentas[i]);
+
+                    }
+
+
+                    break;
+                }else{
+                    cout << "Seleccione una opcion valida";
+                }
+
+            
             }
+
+        }
+
+};
+
+
+int main()
+{
+    system("cls");
+
+    int opt{0};
+    bool bandera{false};
+    string texto = "Ingrese:\n\t[0]Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
+
+    perdirNum(opt, texto);     
 
     cuenta inicio;
     inicio.admin();
-
-    
 
     switch (opt)
     {
     case 0:
         inicio.login();
+        bandera = inicio.compAdmin();
         break;
     case 1:
         inicio.crearCuenta();
@@ -195,4 +285,31 @@ int main()
         return 0;
     }
 
+    if (bandera)
+    {
+    
+        system("cls");
+
+        opt = 0;
+        texto = "Que desea hacer:\n\t[0]Ver cuentas\n\t[1]Eliminar cuenta\n\t[2]Entrar a la cuenta\n\t[Otro]Salir\n\t>>>> ";
+
+        perdirNum(opt, texto);
+
+        switch (opt)
+        {
+        case 0:
+            system("cls");
+            inicio.mostrarCuentas();
+            break;
+        case 1:
+            inicio.eliminarCuentas();
+            break;
+        case 2:
+            break;
+        default:
+            break;
+        }
+    }
+
 }
+
