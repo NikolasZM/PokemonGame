@@ -21,8 +21,6 @@ class cuenta
 
     public:
         string nombre;
-        string contraseña;
-        int edad;
 
         cuenta(){
             nombre = " ";
@@ -233,8 +231,6 @@ class cuenta
 
                     cuentas.erase(cuentas.begin()+ cuenta - 1);
 
-                    cout <<"tamaño: "<< cuentas.size();
-
                     for(int i{0}; i <= cuentas.size(); ++i){
 
                         if((i == cuentas.size())&&(i != 0)){
@@ -256,6 +252,9 @@ class cuenta
 
         }
 
+    private:
+        string contraseña;
+        int edad;
 };
 
 
@@ -265,14 +264,14 @@ int main()
 
     int opt{0};
     bool bandera{false};
-    string texto = "Ingrese:\n\t[0]Login\n\t[1]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
+    string texto = "Ingrese:\n\t[1]Login\n\t[2]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
 
     perdirNum(opt, texto);     
 
     cuenta inicio;
     inicio.admin();
 
-    switch (opt)
+    switch (opt-1)
     {
     case 0:
         inicio.login();
@@ -291,11 +290,11 @@ int main()
         system("cls");
 
         opt = 0;
-        texto = "Que desea hacer:\n\t[0]Ver cuentas\n\t[1]Eliminar cuenta\n\t[2]Entrar a la cuenta\n\t[Otro]Salir\n\t>>>> ";
+        texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[Otro]Salir\n\t>>>> ";
 
         perdirNum(opt, texto);
 
-        switch (opt)
+        switch (opt-1)
         {
         case 0:
             system("cls");
