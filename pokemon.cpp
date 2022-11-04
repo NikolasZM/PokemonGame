@@ -30,9 +30,9 @@ void Pokemon::getSprite() {
     //███
     char s=219;
     string pintar = "\x1b"+color;
-    cout <<pintar<<s<<s<<s<<"\t\t"<<DF<<especie<<"\n";
-    cout <<pintar<<s<<s<<s<<"\t\t"<<DF<<"Vida: "<<vida<<"\n";
-    cout <<pintar<<s<<s<<s<<" \n"<<DF<<"\n";
+    cout <<pintar<<s<<s<<s<<"███\t\t"<<DF<<especie<<"\n";
+    cout <<pintar<<s<<s<<s<<"███\t\t"<<DF<<"Vida: "<<vida<<"\n";
+    cout <<pintar<<s<<s<<s<<"███ \n"<<DF<<"\n";
 }
 
 Pokemon::~Pokemon() {
