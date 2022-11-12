@@ -4,28 +4,17 @@
 #include <fstream>
 #include "libreria.hpp"
 
-int perdirNum(int &opt, string texto){
-    while(true){
-        cout << texto;
-        cin >> opt;
-        if( !cin.good() ){
-            cin.clear();
-            cin.ignore();
-            cout << "Solo valores numericos" << "\n";
-            system("cls");
-        }else{
-            return opt;
-        }
-    }
-}
+using namespace std;
+
+// Class cuenta
 
 cuenta::cuenta(){
     nombre = " ";
-    contraseña = " ";
+    contrasena = " ";
     edad = 0;
 }
 
-void cuenta::añadirTexto(string nombre){
+void cuenta::anadirTexto(string nombre){
     ofstream usuarios;
 
     usuarios.open("usuarios.txt", ios::app); 
@@ -41,31 +30,12 @@ bool cuenta::comprobarArchivo(string ubicacion){
     return archivo.good();
 }
 
-void cuenta::admin(){
-    string nombreContraseña{"admin"};
-    string direccion{"admin/datosCuenta.txt"};
-
-    if (comprobarArchivo(direccion)){
-        return;
-    }else{
-        system("MD admin");
-
-        ofstream datosCuenta(direccion);
-
-            datosCuenta << nombreContraseña << "\n";
-            datosCuenta << nombreContraseña << "\n";
-
-        datosCuenta.close();
-    }
-
-}
-
 void cuenta::crearCuenta(){
 
     string crearCarpeta{" "};
     string direccion1{" "};
     string direccion2{" "};
-    string contraseñaConf{" "};
+    string contrasenaConf{" "};
 
     system("cls");
 
@@ -85,17 +55,17 @@ void cuenta::crearCuenta(){
         }
     }
 
-    añadirTexto(nombre);
+    anadirTexto(nombre);
 
     while(true){
-        cout << "Ingrese su contraseña: ";
-        cin >> contraseña;
-        cout << "Vuelva a ingresar su contraseña: ";
-        cin >> contraseñaConf;
-        if (contraseña == contraseñaConf){
+        cout << "Ingrese su contrasena: ";
+        cin >> contrasena;
+        cout << "Vuelva a ingresar su contrasena: ";
+        cin >> contrasenaConf;
+        if (contrasena == contrasenaConf){
             break;
         }
-        cout << "Las contraseñas deben ser iguales" << "\n";
+        cout << "Las contrasenas deben ser iguales" << "\n";
     }
 
     while(true){
@@ -112,7 +82,7 @@ void cuenta::crearCuenta(){
         if (edad > 7){
             break;
         }else{
-            cout << "Solo para mayores de 7 años" << "\n";
+            cout << "Solo para mayores de 7 anos" << "\n";
         }
     }
 
@@ -122,7 +92,7 @@ void cuenta::crearCuenta(){
     ofstream datosCuenta(direccion2);
 
     datosCuenta << nombre << "\n";
-    datosCuenta << contraseña << "\n";
+    datosCuenta << contrasena << "\n";
 
     datosCuenta.close();
 
@@ -150,8 +120,8 @@ void cuenta::login(){
             continue;
         }
 
-        cout << "Ingrese su contraseña: ";
-        cin >> contraseña;
+        cout << "Ingrese su contrasena: ";
+        cin >> contrasena;
 
 
         ifstream datosCuenta(direccion);
@@ -159,10 +129,10 @@ void cuenta::login(){
             comprobar.push_back(l);
         }
 
-        if (contraseña == comprobar[1]){
+        if (contrasena == comprobar[1]){
             break;
         }else{
-            cout << "Contraseña incorrecta vuelva a intentar\n";
+            cout << "Contrasena incorrecta vuelva a intentar\n";
             system("pause");
             continue;
         }
@@ -178,26 +148,58 @@ bool cuenta::compAdmin(){
     }
 }
 
-vector<string> cuenta::mostrarCuentas(){
+cuenta::~cuenta(){
+    nombre = "";
+    contrasena = "";
+    edad = 0;
+}
+
+
+//  Class Admin
+
+admin::admin(){
+    string nombreContrasena{"admin"};
+    string direccion{"admin/datosCuenta.txt"};
+
+    if (comprobarArchivo(direccion)){
+        return;
+    }else{
+        system("MD admin");
+
+        ofstream datosCuenta(direccion);
+
+            datosCuenta << nombreContrasena << "\n";
+            datosCuenta << nombreContrasena << "\n";
+
+        datosCuenta.close();
+        anadirTexto(nombreContrasena);
+    }
+
+}
+
+vector<string> admin::mostrarCuentas(){
             
     int i{0};
     vector<string> cuentas;
     string l;
 
     ifstream usuarios("usuarios.txt");
-    while(getline(usuarios, l)){
+    while(getline(usuarios, l))
+    {
 
         cuentas.push_back(l);
-        cout << "[" << i+1 << "]" << cuentas[i] << "\n";
-        ++i;
-        
+    }
+
+    for (int i{1}; i < cuentas.size(); ++i)
+    {
+        cout << "[" << i << "]" << cuentas[i] << "\n";
     }
 
     return cuentas;
 
 }
 
-void cuenta::eliminarCuentas(){
+void admin::eliminarCuentas(){
             
     vector<string> cuentas = mostrarCuentas();
     int cuenta;
@@ -217,17 +219,17 @@ void cuenta::eliminarCuentas(){
             system("cls");
         }
 
-        if(cuenta-1 < cuentas.size())
+        if(cuenta < cuentas.size())
         {
-            borrar1 = "del " + cuentas[cuenta-1];
-            borrar2 = "rmdir " + cuentas[cuenta-1];
+            borrar1 = "del " + cuentas[cuenta];
+            borrar2 = "rmdir " + cuentas[cuenta];
             
             system(borrar1.c_str());
             system(borrar2.c_str());
             system("del usuarios.txt");
                     
 
-            cuentas.erase(cuentas.begin()+ cuenta - 1);
+            cuentas.erase(cuentas.begin()+ cuenta);
 
             for(int i{0}; i <= cuentas.size(); ++i){
 
@@ -235,7 +237,7 @@ void cuenta::eliminarCuentas(){
                     break;
                 }    
 
-                añadirTexto(cuentas[i]);
+                anadirTexto(cuentas[i]);
 
             }
 
@@ -250,9 +252,78 @@ void cuenta::eliminarCuentas(){
 
 }
 
-cuenta::~cuenta(){
-    nombre = ""
-    contraseña = ""
-    edad = 0
+admin::~admin(){
 }
 
+
+// Class interfazCuenta
+
+interfazCuenta::interfazCuenta(){
+    texto = " ";
+    opt = 0;
+    bandera = false;
+}
+
+int interfazCuenta::perdirNum(int &opt, string texto){
+    while(true){
+        cout << texto;
+        cin >> opt;
+        if( !cin.good() ){
+            cin.clear();
+            cin.ignore();
+            cout << "Solo valores numericos" << "\n";
+            system("cls");
+        }else{
+            return opt;
+        }
+    }
+}
+
+void interfazCuenta::interfazInicio(cuenta inicio, admin admin){
+
+    texto = "Ingrese:\n\t[1]Login\n\t[2]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
+
+    perdirNum(opt, texto);     
+
+    switch (opt-1)
+    {
+    case 0:
+        inicio.login();
+        bandera = inicio.compAdmin();
+        break;
+    case 1:
+        inicio.crearCuenta();
+        break;
+    default:
+        break;
+    }
+}
+
+void interfazCuenta::interfazAdmin(admin admin){
+    if (bandera)
+    {
+    
+        system("cls");
+
+        opt = 0;
+        texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[Otro]Salir\n\t>>>> ";
+
+        perdirNum(opt, texto);
+
+        switch (opt-1)
+        {
+        case 0:
+            system("cls");
+            admin.mostrarCuentas();
+            break;
+        case 1:
+            admin.eliminarCuentas();
+            break;
+        case 2:
+            break;
+        default:
+            break;
+        }
+
+    }
+}

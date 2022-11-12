@@ -5,7 +5,6 @@
 
 using namespace std;
 
-int perdirNum(int &opt, string texto);
 
 
 class cuenta
@@ -13,28 +12,56 @@ class cuenta
 
     public:
         string nombre;
+        string contrasena;
+        int edad;
 
         cuenta();
 
-        void añadirTexto(string nombre);
+        void anadirTexto(string nombre);
 
         bool comprobarArchivo(string ubicacion);
 
-        void admin();
-
         void crearCuenta();
+        
+        bool compAdmin();
 
         void login();
 
-        bool compAdmin();
+        ~cuenta();
+
+};
+
+class admin : public cuenta
+{
+
+    public:
+
+        admin();
 
         vector<string> mostrarCuentas();
 
         void eliminarCuentas();
+    
+        ~admin();
 
-        ~cuenta();
+};
 
-    private:
-        string contraseña;
-        int edad;
+class interfazCuenta
+{
+
+    public:
+
+        string texto;
+        int opt;
+        bool bandera;
+        bool user;
+
+        interfazCuenta();
+
+        int perdirNum(int &opt, string texto);
+
+        void interfazInicio(cuenta inicio, admin admin);
+
+        void interfazAdmin(admin admin);
+
 };
