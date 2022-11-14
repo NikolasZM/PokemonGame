@@ -3,20 +3,31 @@
 #include <string>
 #include <sstream>
 #include <stdlib.h>
+#include <iomanip>
+#include <time.h>
 using namespace std;
 
-#define GREEN "\x1B[32m"
-#define OTRO    "\x1B[30m"
 #define DF      "\x1B[39m"
 
 class Pokemon {
 public:
+
     Pokemon() ;
+    
     ~Pokemon() ;
-    void setInfo(string especiePoke,int nivelPok, int vidaPok,int ataquePok, int defensaPok, string tipo1Pok, string tipo2Pok,string colorPok);
+    
+    void setInfo(int idPoke, string especiePoke,int nivelPok, int vidaPok,int ataquePok, int defensaPok, string tipo1Pok, string tipo2Pok,string colorPok);
+    
     void getInfo() ;
-    void getSprite();
+    
+    void getSprite(int sangria);
+    
+    string getDataInfo();
+    
+    string getEspecie();
+    
 private:
+    int iD;
     string especie;
     int nivel;
     string tipo1;
@@ -27,4 +38,43 @@ private:
     int defensa;
 };
 
-void crearInicial(string archivoData);
+
+
+class Partida{
+public:
+    string nombre;
+    Pokemon salvaje;
+    Pokemon principal;
+    int cantidad;
+    string lugar;
+    string pokemonData;
+
+    Partida(string nameC);
+
+    void setPrincipal();
+
+    void savePokemon(string infoPokemon);
+
+    void setSalvaje(int niv, int salv) ;
+
+    void captura();
+
+    string menuCaptura();
+
+    int menuJuego ();
+
+    int generaRuta(int &nivel);
+
+    ~Partida();
+};
+
+
+string crearInicial(string archivoData);
+
+void logoPoke();
+
+void introPoke(Partida &player);
+
+int menuJuego (string lugar);
+
+int perdirOpt();

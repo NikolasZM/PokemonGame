@@ -21,11 +21,13 @@ class cuenta
 
         bool comprobarArchivo(string ubicacion);
 
-        void crearCuenta();
+        void crearCuenta(string &nameC);
         
         bool compAdmin();
 
-        void login();
+        void login(bool &sesion, string &nameC);
+
+        string getName();
 
         ~cuenta();
 
@@ -60,7 +62,7 @@ class interfazCuenta
 
         int perdirNum(int &opt, string texto);
 
-        void interfazInicio(cuenta inicio, admin admin);
+        void interfazInicio(cuenta inicio, admin admin, bool &sesion,string &nameC,bool &inicial);
 
         void interfazAdmin(admin admin);
 

@@ -1,93 +1,68 @@
 #include "libreria.hpp"
 #include "pokemon.hpp"
 
-int main(){
+int main() {
     system("cls");
 
     cuenta inicio;
     admin admin;
+    bool sesion{false};
+    bool inicial{false};
+    string auxName;
 
     interfazCuenta interfazC;
     
-    interfazC.interfazInicio(inicio, admin);
+    interfazC.interfazInicio(inicio, admin, sesion, auxName, inicial);
 
     interfazC.interfazAdmin(admin);
 
-    // system("cls");
-    // cout<<"\a";
-    // cout<<"\n                                  ,'\\   \n";
-    // cout<<"    _.----.        ____         ,'  _\\   ___    ___     ____\n";
-    // cout<<"_,-'       `.     |    |  /`.   \\,-'    |   \\  /   |   |    \\  |`.\n";
-    // cout<<"\\      __    \\    '-.  | /   `.  ___    |    \\/    |   '-.   \\ |  |\n";
-    // cout<<" \\.    \\ \\   |  __  |  |/    ,','_  `.  |          | __  |    \\|  |\n";
-    // cout<<"   \\    \\/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |\n";
-    // cout<<"    \\     ,-'/  /   \\    ,'   | \\/ / ,`.|         /  /   \\  |     |\n";
-    // cout<<"     \\    \\ |   \\_/  |   `-.  \\    `'  /|  |    ||   \\_/  | |\\    |\n";
-    // cout<<"      \\    \\ \\      /       `-.`.___,-' |  |\\  /| \\      /  | |   |\n";
-    // cout<<"       \\    \\ `.__,'|  |`-._    `|      |__| \\/ |  `.__,'|  | |   |\n";
-    // cout<<"        \\_.-'       |__|    `-._ |              '-.|     '-.| |   |\n";
-    // cout<<"                                `'                            '-._| \n"<<flush;
+    //juego
 
-    // system("pause");
-    // system("cls");
-
-    
-
-    // if (!user){
-    //     cout<<"Bienvenido al mundo de los pokemons, mi nombre es Pepito, pero todo el mundo me llama profesor Pokemon.\n"<<flush;
-
-    //     system("pause");
-    //     system("cls");
-
-    //     cout<<"Y esto son los que llamamos Pokemons: \n";
-    //     cout<<"                 .\"-,.__\n";
-    //     cout<<"                 `.     `.  ,\n";
-    //     cout<<"              .--'  .._,'\"-' `.\n";
-    //     cout<<"             .    .'         `'\n";
-    //     cout<<"             `.   /          ,'\n";
-    //     cout<<"               `  '--.   ,-\"'\n";
-    //     cout<<"                `\"`   |  \\ \n";
-    //     cout<<"                   -. \\, |\n";
-    //     cout<<"                    `--Y.'      ___.\n";
-    //     cout<<"                         \\     L._, \\\n";
-    //     cout<<"               _.,        `.   <  <\\                _\n";
-    //     cout<<"             ,' '           `, `.   | \\            ( `\n";
-    //     cout<<"          ../, `.            `  |    .\\`.           \\ \\_\n";
-    //     cout<<"         ,' ,..  .           _.,'    ||\\l            )  '\".\n";
-    //     cout<<"        , ,'   \\           ,'.-.`-._,'  |           .  _._`.\n";
-    //     cout<<"      ,' /      \\ \\        `' ' `--/   | \\          / /   ..\\\n";
-    //     cout<<"    .'  /        \\ .         |\\__ - _ ,'` `        / /     `.`.\n";
-    //     cout<<"    |  '          ..         `-...-\"  |  `-'      / /        . `.\n";
-    //     cout<<"    | /           |L__           |    |          / /          `. `.\n";
-    //     cout<<"   , /            .   .          |    |         / /             ` `\n";
-    //     cout<<"  / /          ,. ,`._ `-_       |    |  _   ,-' /               ` \\\n";
-    //     cout<<" / .           \"`_/. `-_ \\_,.  ,'    +-' `-'  _,        ..,-.    \\`.\n";
-    //     cout<<".  '         .-f    ,'   `    '.       \\__.---'     _   .'   '     \\ \\\n";
-    //     cout<<"' /          `.'    l     .' /          \\..      ,_|/   `.  ,'`     L`\n";
-    //     cout<<"|'      _.-""` `.    \\ _,'  `            \\ `.___`.'\"`-.  , |   |    | \\\n";
-    //     cout<<"||    ,'      `. `.   '       _,...._        `  |    `/ '  |   '     .|\n";
-    //     cout<<"||  ,'          `. ;.,.---' ,'       `.   `.. `-'  .-' /_ .'    ;_   ||\n";
-    //     cout<<"|| '              V      / /           `   | `   ,'   ,' '.    !  `. ||\n";
-    //     cout<<"||/            _,-------7 '              . |  `-'    l         /    `||\n";
-    //     cout<<". |          ,' .-   ,' ||               | .-.        `.      .'     ||\n";
-    //     cout<<" `'        ,'    `\".'    |               |    `.        '. -.'       `'\n";
-    //     cout<<"          /      ,'      |               |,'    \\-.._,.'/'\n";
-    //     cout<<"          .     /        .               .       \\    .''\n";
-    //     cout<<"        .`.    |         `.             /         :_,'.'\n";
-    //     cout<<"          \\ `...\\   _     ,'-.        .'         /_.-'\n";
-    //     cout<<"           `-.__ `,  `'   .  _.>----''.  _  __  /\n";
-    //     cout<<"                .'        /\"'          |  \"'   '_\n";
-    //     cout<<"               /_|.-'\\ ,\".             '.'`__'-( \\\n";
-    //     cout<<"                 / ,\"'\"\\,'               `/  `-.|\"\n";
-
-    //     system("pause");
-    //     system("cls");
-
-    //     cout<<"Es hora de que escojas a tu primer pokemon...\n";
-    //     string pokemonArchivo = "DatosC.csv";
-    //     crearInicial(pokemonArchivo);
-    //     cout<<"Cual eliges?\n";
+    if (sesion) {
+        logoPoke();
+        Partida jugador1(auxName);
         
-    // }
+        if (inicial) {
+            introPoke(jugador1);
+        }
 
+        jugador1.setPrincipal();
+
+        while(true) {
+            int opt = jugador1.menuJuego();
+            switch(opt-1) {
+                case 0: {
+                int nivelRuta;
+                int idSalvaje;
+
+                idSalvaje = jugador1.generaRuta(nivelRuta);
+                jugador1.setSalvaje(nivelRuta,idSalvaje);
+                jugador1.captura();
+                string infoCaptura = jugador1.menuCaptura();
+
+                if (infoCaptura == "") {
+                    continue;
+                }else {
+                    jugador1.savePokemon(infoCaptura);
+                }
+                break;
+                }
+
+                case 1:
+                    cout<<"Esta opcion aún no está disponible.\n";
+                break;
+
+                case 2:
+                    cout<<"Esta opcion aún no está disponible.\n";
+                break;
+
+                default:
+                return 0;
+                break;
+            }
+        }
+
+    }else {
+        cout<<"Bye.";
+    }
 }

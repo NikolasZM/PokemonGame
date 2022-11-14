@@ -22,7 +22,6 @@ void cuenta::anadirTexto(string nombre){
     usuarios << nombre << endl;  
             
     usuarios.close();  
-
 }
 
 bool cuenta::comprobarArchivo(string ubicacion){
@@ -30,7 +29,7 @@ bool cuenta::comprobarArchivo(string ubicacion){
     return archivo.good();
 }
 
-void cuenta::crearCuenta(){
+void cuenta::crearCuenta(string &nameC){
 
     string crearCarpeta{" "};
     string direccion1{" "};
@@ -96,10 +95,10 @@ void cuenta::crearCuenta(){
 
     datosCuenta.close();
 
-
+    nameC = nombre;
 }
 
-void cuenta::login(){
+void cuenta::login(bool &sesion, string &nameC){
 
     string direccion{" "};
     string l{" "};
@@ -130,6 +129,8 @@ void cuenta::login(){
         }
 
         if (contrasena == comprobar[1]){
+            sesion = true;
+            nameC=nombre;
             break;
         }else{
             cout << "Contrasena incorrecta vuelva a intentar\n";
@@ -137,7 +138,6 @@ void cuenta::login(){
             continue;
         }
     }
-
 }
 
 bool cuenta::compAdmin(){
@@ -146,6 +146,10 @@ bool cuenta::compAdmin(){
     }else{
         return false;
     }
+}
+
+string cuenta::getName() {
+    return nombre;
 }
 
 cuenta::~cuenta(){
@@ -174,7 +178,6 @@ admin::admin(){
         datosCuenta.close();
         anadirTexto(nombreContrasena);
     }
-
 }
 
 vector<string> admin::mostrarCuentas(){
@@ -196,7 +199,6 @@ vector<string> admin::mostrarCuentas(){
     }
 
     return cuentas;
-
 }
 
 void admin::eliminarCuentas(){
@@ -249,7 +251,6 @@ void admin::eliminarCuentas(){
 
             
     }
-
 }
 
 admin::~admin(){
@@ -279,7 +280,7 @@ int interfazCuenta::perdirNum(int &opt, string texto){
     }
 }
 
-void interfazCuenta::interfazInicio(cuenta inicio, admin admin){
+void interfazCuenta::interfazInicio(cuenta inicio, admin admin, bool &sesion, string &nameC, bool &inicial){
 
     texto = "Ingrese:\n\t[1]Login\n\t[2]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
 
@@ -288,11 +289,13 @@ void interfazCuenta::interfazInicio(cuenta inicio, admin admin){
     switch (opt-1)
     {
     case 0:
-        inicio.login();
+        inicio.login(sesion,nameC);
         bandera = inicio.compAdmin();
         break;
     case 1:
-        inicio.crearCuenta();
+        inicio.crearCuenta(nameC);
+        sesion=true;
+        inicial = true;
         break;
     default:
         break;
