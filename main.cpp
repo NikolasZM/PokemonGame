@@ -20,15 +20,15 @@ int main() {
 
     if (sesion) {
         logoPoke();
+        
         Partida jugador1(auxName);
         
         if (inicial) {
-            introPoke(jugador1);
+            jugador1.introPoke();
         }
-
         jugador1.setPrincipal();
-
         while(true) {
+            //jugador1.getBase();
             int opt = jugador1.menuJuego();
             switch(opt-1) {
                 case 0: {
@@ -49,7 +49,10 @@ int main() {
                 }
 
                 case 1:
-                    cout<<"Esta opcion aún no está disponible.\n";
+                    cout << "=======Tus Pokemons son:==========\n";
+                    for (int i{0}; i< jugador1.coleccionPokemon.size() ; i++) {
+                        cout << jugador1.coleccionPokemon[i] << "\n";
+                    }
                 break;
 
                 case 2:

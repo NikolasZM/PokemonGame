@@ -37,7 +37,7 @@ string Pokemon::getEspecie() {
 }
 
 string Pokemon::getDataInfo() {
-    char i = ';';
+    char i = ',';
     string strId = to_string(iD);
     string strNivel = to_string(nivel);
     string strAtaque= to_string(ataque);
@@ -62,28 +62,82 @@ Pokemon::~Pokemon() {}
 //CLASS PARTIDA
 
 
+
+
+
 Partida::Partida(string nameC) {
         nombre = nameC;
-        cantidad=0;
         lugar = "Ruta 1";
+        delimitador = ',';
+
+        string nameArchivo = "DatosC.csv";
+        ifstream archivo(nameArchivo.c_str());
+        string linea;
+        int i{0};
+
+        getline(archivo,linea);
+
+        while(getline(archivo,linea)) {
+            stringstream stream(linea);
+
+            for (int j{0};j<8;j++) {
+                string auxiliar;
+                getline(stream,auxiliar,delimitador);
+                basePokemon[i][j] = auxiliar;
+            }
+
+        i++;
+        }
+        archivo.close();
+
+        nameArchivo = "rutas.csv";
+        ifstream rutas(nameArchivo.c_str());
+        i=0;
+        getline(rutas,linea);
+        
+
+        while(getline(rutas,linea)) {
+            
+            stringstream stream(linea);
+
+            for (int j{0};j<10;j++) {
+                string auxiliar;
+                getline(stream,auxiliar,delimitador);
+                rutasInfo[i][j] = auxiliar;
+            }
+        i++;
+        }
+        rutas.close();
+        string direccion = nombre+"/datos.txt";
+        ifstream coleccion(direccion);
+
+        while(getline(coleccion,linea)) {
+            coleccionPokemon.push_back(linea);
+        }
+
 }
 
+
+void Partida::getBase() {
+    for (int i{0};i<coleccionPokemon.size();i++) {
+        cout << coleccionPokemon[i] <<" | \n";
+    }
+
+}
+
+
 void Partida::setPrincipal() {
-        string direccion = nombre+"/datos.txt";
-        ifstream archivo(direccion.c_str());
-        string linea;
-        char del = ';';
-        getline(archivo, linea);
-        stringstream stream(linea);
+        
+        stringstream stream(coleccionPokemon[0]);
         string id,especie,nivel,tipo1,tipo2,vida,ataque,defensa,color;
-        getline(stream,id,del);
-        getline(stream,especie,del);
-        getline(stream,nivel,del);
-        getline(stream,tipo1,del);
-        getline(stream,tipo2,del);
-        getline(stream,vida,del);
-        getline(stream,ataque,del);
-        getline(stream,defensa,del);
+        getline(stream,id,delimitador);
+        getline(stream,especie,delimitador);
+        getline(stream,nivel,delimitador);
+        getline(stream,tipo1,delimitador);
+        getline(stream,tipo2,delimitador);
+        getline(stream,vida,delimitador);
+        getline(stream,ataque,delimitador);
+        getline(stream,defensa,delimitador);
         getline(stream,color);
         int idInt=stoi(id);
         int vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa),nivelI=stoi(nivel);
@@ -91,40 +145,32 @@ void Partida::setPrincipal() {
 }
 
 void Partida::savePokemon(string infoPokemon) {
-    string direccion = nombre+"/datos.txt";
-    ofstream guardar;
-    guardar.open(direccion, ios::app);
-    guardar << infoPokemon << endl;  
-    guardar.close();  
+
+    coleccionPokemon.push_back(infoPokemon);
+
 }
 
 void Partida::setSalvaje(int niv, int idSal) {
-
-        string nameArchivo = "DatosC.csv";
-        ifstream archivo(nameArchivo.c_str());
-        string linea;
-        char del = ';';
-        getline(archivo,linea);
-        while (getline(archivo,linea)) {
-            stringstream stream(linea);
-            string id,especie,tipo1,tipo2,vida,ataque,defensa,color;
-            getline(stream,id,del);
-            int idInt = stoi(id);
-            if (idInt==idSal) {
-                getline(stream,especie,del);
-                getline(stream,tipo1,del);
-                getline(stream,tipo2,del);
-                getline(stream,vida,del);
-                getline(stream,ataque,del);
-                getline(stream,defensa,del);
-                getline(stream,color);                
-                int vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa);
-                salvaje.setInfo(idInt,especie,niv,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
-                
-            }else {
-                continue;
-            }
+    for (int i{0};i<151;i++) {
+        string id,especie,tipo1,tipo2,vida,ataque,defensa,color;
+        id = basePokemon[i][0];
+        int idInt=stoi(id);
+        //cout << "idSal = " << idSal << "\n";
+        if (idSal == idInt) {
+            especie = basePokemon[i][1];
+            tipo1 = basePokemon[i][2];
+            tipo2 = basePokemon[i][3];
+            vida = basePokemon[i][4];
+            ataque = basePokemon[i][5];
+            defensa = basePokemon[i][6];
+            color = basePokemon[i][7];
+            int vidaInt=stoi(vida), ataqueI=stoi(ataque), defensaI=stoi(defensa);
+            salvaje.setInfo(idInt,especie,niv,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
+            break;
+        }else {
+            continue;
         }
+    }
 }
 
 void Partida::captura() {
@@ -183,117 +229,94 @@ int Partida::menuJuego () {
 }
 
 int Partida::generaRuta(int &nivel) {
-    
-    string direccion = "rutas.csv";
-    ifstream archivo(direccion.c_str());
-    string linea;
-    getline(archivo,linea);
-    
-    char del = ';';
-    while (getline(archivo,linea)) {
-        stringstream stream(linea);
-        string lugarLista,randomStr,nivelRuta;
-        getline(stream,lugarLista,del);
-        if (lugarLista==lugar) {
-            
-            getline(stream,randomStr,del);
-            
-            int random = stoi(randomStr);
-            
-            int lista[random-1];
-            getline(stream,nivelRuta,del);
-            nivel = stoi(nivelRuta);
+    for (int i{0};i<2;i++) {
 
-            for (int i{0};i<random-1;i++) {
-                string idPokemon;
-                getline(stream,idPokemon,del);
-                int idPokeInt = stoi(idPokemon);
-                lista[i] = idPokeInt; 
+        string nombreRuta = rutasInfo[i][0];
+
+        if (nombreRuta==lugar) {
+
+            int random = stoi(rutasInfo[i][1]);
+            int lista[random];
+            nivel = stoi(rutasInfo[i][2]);
+
+            for (int j{0};j<random;j++) {
+                int idPoke=stoi(rutasInfo[i][j+3]);
+                lista[j] = idPoke;
             }
+
             srand(time(NULL));
-            int randomLimit = random-2;
-            
-            int f = rand() % randomLimit ;
-            
+            int f = rand() % random ;
             int pokeSalvaje;
             pokeSalvaje = lista[f];
             return pokeSalvaje;
+
+        }else {
+            continue;
+        }
+
+    }
+}
+
+Partida::~Partida() {
+    string direccion = nombre+"/datos.txt";
+    ofstream savePoke(direccion);
+
+    for (int i{0};i<coleccionPokemon.size();i++) {
+        savePoke << coleccionPokemon[i] << "\n";
+    }
+
+    savePoke.close();
+}
+
+
+
+
+string Partida::crearInicial() {
+
+    int elegido{0};
+    int j{0};
+    Pokemon inicial[3];
+
+    for (int i{0};i<151;i++) {
+        string id,especie,tipo1,tipo2,vida,ataque,defensa,color;
+        id = basePokemon[i][0];
+        if (id=="1"||id=="4"||id=="7") {
+            especie = basePokemon[i][1];
+            tipo1 = basePokemon[i][2];
+            tipo2 = basePokemon[i][3];
+            vida = basePokemon[i][4];
+            ataque = basePokemon[i][5];
+            defensa = basePokemon[i][6];
+            color = basePokemon[i][7];
+            int idInt=stoi(id), vidaInt=stoi(vida), ataqueI=stoi(ataque), defensaI=stoi(defensa);
+            inicial[j].setInfo(idInt,especie,5,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
+            //inicial[i].getInfo();
+            cout<<"["<<j+1<<"]\n";
+            inicial[j].getSprite(2);
+            j++;
         }else {
             continue;
         }
     }
-}
 
-Partida::~Partida() {}
+    string eleccion;
+    while (true) {
+        cout<<"Cual Eliges?";
+        int elegido = perdirOpt();
+        
+        if (elegido==1||elegido==2||elegido==3) {
+            eleccion = inicial[elegido-1].getDataInfo();
+            break;
+        }else {
+            continue;
+        }
+    }
+    return eleccion;
+}
 
 
 //FUNCIONES GLOBALES
 
-
-string crearInicial(string archivoData) {
-
-  ifstream archivo(archivoData.c_str());
-  string linea;
-  char del = ';';
-  int elegido{0};
-  Pokemon inicial[3];
-  getline(archivo, linea);
-  int i=0;
-  while (getline(archivo, linea)) {         //Crear iniciales
-    stringstream stream(linea);
-    string id,especie,tipo1,tipo2,vida,ataque,defensa,color;
-    getline(stream,id,del);
-    if (id=="1"||id=="4"||id=="7") {
-        getline(stream,especie,del);
-        getline(stream,tipo1,del);
-        getline(stream,tipo2,del);
-        getline(stream,vida,del);
-        getline(stream,ataque,del);
-        getline(stream,defensa,del);
-        getline(stream,color);
-        int idInt=stoi(id);
-        int vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa);
-        inicial[i].setInfo(idInt,especie,5,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
-        //inicial[i].getInfo();
-        cout<<"["<<i+1<<"]\n";
-        inicial[i].getSprite(2);
-        i++;
-    }else {
-        continue;
-    }
-  }
-  
-    string eleccion{""};
-    while(true) {
-    switch(elegido) {
-    case 0:
-        cout<<"Cual Eliges?";
-        cin>>elegido;
-        break;
-    case 1:
-        eleccion="1;Bulbasaur;5;Planta;Veneno;45;49;49;[38;2;57;148;148m";
-        break;
-    case 2:
-        eleccion="4;Charmander;5;Fuego;;39;52;43;[38;2;255;148;65m";
-        break;
-    case 3:
-        eleccion="7;Squirtle;5;Agua;;44;48;65;[38;2;180;230;238m";
-        break;
-    default:
-        cout<<"Escoja una opción correcta.";
-        elegido=0;
-        break;
-    }
-    if (eleccion=="") {
-        continue;
-    }else {
-        break;
-    }
-    }
-  archivo.close();
-  cout<<eleccion;
-  return eleccion;
-}
 
 void logoPoke() {
     system("cls");
@@ -313,7 +336,7 @@ void logoPoke() {
     system("pause");    
 }
 
-void introPoke(Partida &player) {
+void Partida::introPoke() {
     cout<<"Bienvenido al mundo de los pokemons, mi nombre es Pepito, pero todo el mundo me llama profesor Pokemon.\n"<<flush;
     system("pause");
     system("cls");
@@ -360,8 +383,8 @@ void introPoke(Partida &player) {
     system("cls");
     cout<<"Es hora de que escojas a tu primer pokemon...\n";
     string pokemonArchivo = "DatosC.csv";
-    string Inicial = crearInicial(pokemonArchivo);
-    player.savePokemon(Inicial);
+    string Inicial = crearInicial();
+    savePokemon(Inicial);
     system("cls");
     cout<<"Ahora si que tu aventura comience.";
 }

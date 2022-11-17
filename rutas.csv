@@ -1,2 +1,3 @@
-﻿ruta;tamaño;nivel;resto
-Ruta 1;7;5;14;16;17;18;19;20
+﻿ruta,tamaño,nivel,resto
+Ruta 1,7,5,14,16,17,18,19,20,20
+Ruta 2,7,5,14,16,17,18,19,20,20

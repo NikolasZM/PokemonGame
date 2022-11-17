@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <iomanip>
 #include <time.h>
+#include <vector>
 using namespace std;
 
 #define DF      "\x1B[39m"
@@ -42,16 +43,24 @@ private:
 
 class Partida{
 public:
+
     string nombre;
     Pokemon salvaje;
     Pokemon principal;
-    int cantidad;
     string lugar;
-    string pokemonData;
+    char delimitador;
+    vector<string> coleccionPokemon;
+    
+    string basePokemon[151][8];
+    string rutasInfo[2][10];
+    
+
 
     Partida(string nameC);
 
     void setPrincipal();
+
+    void getBase();
 
     void savePokemon(string infoPokemon);
 
@@ -65,16 +74,18 @@ public:
 
     int generaRuta(int &nivel);
 
+    void introPoke();
+
+    string crearInicial();
+
     ~Partida();
 };
 
 
-string crearInicial(string archivoData);
+//string crearInicial(string archivoData);
 
 void logoPoke();
 
-void introPoke(Partida &player);
-
-int menuJuego (string lugar);
+//void introPoke(Partida &player);
 
 int perdirOpt();
