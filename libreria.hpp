@@ -35,10 +35,11 @@ class admin : public cuenta
 {
 
     public:
+        vector<string> cuentas;
 
         admin();
 
-        vector<string> mostrarCuentas();
+        void mostrarCuentas();
 
         void eliminarCuentas();
     

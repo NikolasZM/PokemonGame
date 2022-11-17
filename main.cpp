@@ -6,13 +6,14 @@ int main() {
 
     cuenta inicio;
     admin admin;
+    usuario jugador;
     bool sesion{false};
     bool inicial{false};
     string auxName;
 
     interfazCuenta interfazC;
     
-    interfazC.interfazInicio(inicio, admin, sesion, auxName, inicial);
+    interfazC.interfazInicio(jugador, inicio, admin, sesion, auxName, inicial);
 
     interfazC.interfazAdmin(admin);
 
