@@ -29,12 +29,85 @@ bool cuenta::comprobarArchivo(string ubicacion){
     return archivo.good();
 }
 
-void cuenta::crearCuenta(string &nameC){
+void cuenta::login(bool &sesion, string &nameC){
 
+    string direccion{" "};
+    string l{" "};
+    vector<string> comprobar;
+
+    while(true){
+
+        system("cls");
+
+        cout << "Ingrese su nombre: ";
+        cin >> nombre;
+
+        direccion = nombre + "/datosCuenta.txt";
+
+        if (!comprobarArchivo(direccion)){
+            cout << "Nombre incorrecto vuelva a intentar\n" ;
+            system("pause");
+            continue;
+        }
+
+        cout << "Ingrese su contrasena: ";
+        cin >> contrasena;
+
+
+        ifstream datosCuenta(direccion);
+        while (getline(datosCuenta, l)){
+            comprobar.push_back(l);
+        }
+
+        if (contrasena == comprobar[1]){
+            sesion = true;
+            nameC=nombre;
+            break;
+        }else{
+            cout << "Contrasena incorrecta vuelva a intentar\n";
+            system("pause");
+            continue;
+        }
+    }
+}
+
+bool cuenta::compAdmin(){
+    if(nombre == "admin"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+string cuenta::getName() {
+    return nombre;
+}
+
+cuenta::~cuenta(){
+    nombre = "";
+    contrasena = "";
+    edad = 0;
+}
+
+//  Class Usuario
+usuario::usuario(){
     string crearCarpeta{" "};
     string direccion1{" "};
     string direccion2{" "};
     string contrasenaConf{" "};
+    
+}
+
+usuario::~usuario(){
+    string crearCarpeta{" "};
+    string direccion1{" "};
+    string direccion2{" "};
+    string contrasenaConf{" "};
+}
+
+void usuario::crearCuenta(string &nameC){
+
+
 
     system("cls");
 
@@ -96,66 +169,6 @@ void cuenta::crearCuenta(string &nameC){
     datosCuenta.close();
 
     nameC = nombre;
-}
-
-void cuenta::login(bool &sesion, string &nameC){
-
-    string direccion{" "};
-    string l{" "};
-    vector<string> comprobar;
-
-    while(true){
-
-        system("cls");
-
-        cout << "Ingrese su nombre: ";
-        cin >> nombre;
-
-        direccion = nombre + "/datosCuenta.txt";
-
-        if (!comprobarArchivo(direccion)){
-            cout << "Nombre incorrecto vuelva a intentar\n" ;
-            system("pause");
-            continue;
-        }
-
-        cout << "Ingrese su contrasena: ";
-        cin >> contrasena;
-
-
-        ifstream datosCuenta(direccion);
-        while (getline(datosCuenta, l)){
-            comprobar.push_back(l);
-        }
-
-        if (contrasena == comprobar[1]){
-            sesion = true;
-            nameC=nombre;
-            break;
-        }else{
-            cout << "Contrasena incorrecta vuelva a intentar\n";
-            system("pause");
-            continue;
-        }
-    }
-}
-
-bool cuenta::compAdmin(){
-    if(nombre == "admin"){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-string cuenta::getName() {
-    return nombre;
-}
-
-cuenta::~cuenta(){
-    nombre = "";
-    contrasena = "";
-    edad = 0;
 }
 
 
@@ -280,7 +293,7 @@ int interfazCuenta::perdirNum(int &opt, string texto){
     }
 }
 
-void interfazCuenta::interfazInicio(cuenta inicio, admin admin, bool &sesion, string &nameC, bool &inicial){
+void interfazCuenta::interfazInicio(usuario jugador,cuenta inicio, admin admin, bool &sesion, string &nameC, bool &inicial){
 
     texto = "Ingrese:\n\t[1]Login\n\t[2]Crear Cuenta\n\t[Otro]salir\n\n>>>> ";
 
@@ -293,7 +306,7 @@ void interfazCuenta::interfazInicio(cuenta inicio, admin admin, bool &sesion, st
         bandera = inicio.compAdmin();
         break;
     case 1:
-        inicio.crearCuenta(nameC);
+        jugador.crearCuenta(nameC);
         sesion=true;
         inicial = true;
         break;

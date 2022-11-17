@@ -20,8 +20,6 @@ class cuenta
         void anadirTexto(string nombre);
 
         bool comprobarArchivo(string ubicacion);
-
-        void crearCuenta(string &nameC);
         
         bool compAdmin();
 
@@ -48,6 +46,21 @@ class admin : public cuenta
 
 };
 
+class usuario : public cuenta
+{
+    public:
+        string crearCarpeta;
+        string direccion1;
+        string direccion2;
+        string contrasenaConf;
+
+        usuario();
+
+        void crearCuenta(string &nameC);
+
+        ~usuario();
+};
+
 class interfazCuenta
 {
 
@@ -62,7 +75,7 @@ class interfazCuenta
 
         int perdirNum(int &opt, string texto);
 
-        void interfazInicio(cuenta inicio, admin admin, bool &sesion,string &nameC,bool &inicial);
+        void interfazInicio(usuario jugador, cuenta inicio, admin admin, bool &sesion,string &nameC,bool &inicial);
 
         void interfazAdmin(admin admin);
 
