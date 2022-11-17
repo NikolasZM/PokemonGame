@@ -314,6 +314,27 @@ string Partida::crearInicial() {
     return eleccion;
 }
 
+void Partida::mostrarPokemons() {
+    for (int i{0} ; i< coleccionPokemon.size(); i++) {
+        Pokemon auxiliar;
+        stringstream stream(coleccionPokemon[i]);
+        string id,especie,nivel,tipo1,tipo2,vida,ataque,defensa,color;
+        getline(stream,id,delimitador);
+        getline(stream,especie,delimitador);
+        getline(stream,nivel,delimitador);
+        getline(stream,tipo1,delimitador);
+        getline(stream,tipo2,delimitador);
+        getline(stream,vida,delimitador);
+        getline(stream,ataque,delimitador);
+        getline(stream,defensa,delimitador);
+        getline(stream,color);
+        int idInt=stoi(id);
+        int vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa),nivelI=stoi(nivel);
+        auxiliar.setInfo(idInt,especie,nivelI,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
+        auxiliar.getInfo();
+    }
+}
+
 
 //FUNCIONES GLOBALES
 
@@ -403,4 +424,3 @@ int perdirOpt(){
         }
     }
 }
-

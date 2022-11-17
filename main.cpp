@@ -50,9 +50,7 @@ int main() {
 
                 case 1:
                     cout << "=======Tus Pokemons son:==========\n";
-                    for (int i{0}; i< jugador1.coleccionPokemon.size() ; i++) {
-                        cout << jugador1.coleccionPokemon[i] << "\n";
-                    }
+                    jugador1.mostrarPokemons();
                 break;
 
                 case 2:

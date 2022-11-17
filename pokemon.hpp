@@ -78,6 +78,8 @@ public:
 
     string crearInicial();
 
+    void mostrarPokemons();
+
     ~Partida();
 };
 
