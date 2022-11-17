@@ -177,6 +177,14 @@ void usuario::crearCuenta(string &nameC){
 admin::admin(){
     string nombreContrasena{"admin"};
     string direccion{"admin/datosCuenta.txt"};
+    string l;
+
+    ifstream usuarios("usuarios.txt");
+    while(getline(usuarios, l))
+    {
+
+        cuentas.push_back(l);
+    }
 
     if (comprobarArchivo(direccion)){
         return;
@@ -193,30 +201,19 @@ admin::admin(){
     }
 }
 
-vector<string> admin::mostrarCuentas(){
+void admin::mostrarCuentas(){
             
-    int i{0};
-    vector<string> cuentas;
-    string l;
 
-    ifstream usuarios("usuarios.txt");
-    while(getline(usuarios, l))
-    {
-
-        cuentas.push_back(l);
-    }
 
     for (int i{1}; i < cuentas.size(); ++i)
     {
         cout << "[" << i << "]" << cuentas[i] << "\n";
     }
 
-    return cuentas;
 }
 
 void admin::eliminarCuentas(){
             
-    vector<string> cuentas = mostrarCuentas();
     int cuenta;
     string borrar1;
     string borrar2;
