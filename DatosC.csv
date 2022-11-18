@@ -1,54 +1,54 @@
 ﻿#,Pokémon,Tipo1,Tipo2,PS,Ataque,Defensa,Color
-1,Bulbasaur,Planta,Veneno,45,49,49,[38;2;57;148;148m
-2,Ivysaur,Planta,Veneno,60,62,63,[38;2;57;148;148m
-3,Venusaur,Planta,Veneno,80,82,83,[38;2;57;148;148m
-4,Charmander,Fuego,,39,52,43,[38;2;57;148;148m
-5,Charmeleon,Fuego,,58,64,58,[38;2;57;148;148m
-6,Charizard,Fuego,Volador,78,84,78,[38;2;57;148;148m
-7,Squirtle,Agua,,44,48,65,[38;2;57;148;148m
-8,Wartortle,Agua,,59,63,80,[38;2;57;148;148m
-9,Blastoise,Agua,,79,83,100,[38;2;57;148;148m
-10,Caterpie,Bicho,,45,30,35,[38;2;57;148;148m
-11,Metapod,Bicho,,50,20,55,[38;2;57;148;148m
-12,Butterfree,Bicho,Volador,60,45,50,[38;2;57;148;148m
-13,Weedle,Bicho,Veneno,40,35,30,[38;2;57;148;148m
-14,Kakuna,Bicho,Veneno,45,25,50,[38;2;57;148;148m
-15,Beedrill,Bicho,Veneno,65,90,40,[38;2;57;148;148m
-16,Pidgey,Normal,Volador,40,45,40,[38;2;57;148;148m
-17,Pidgeotto,Normal,Volador,63,60,55,[38;2;57;148;148m
-18,Pidgeot,Normal,Volador,83,80,75,[38;2;57;148;148m
-19,Rattata,Normal,,30,56,35,[38;2;57;148;148m
-20,Raticate,Normal,,55,81,60,[38;2;57;148;148m
-21,Spearow,Normal,Volador,40,60,30,[38;2;57;148;148m
-22,Fearow,Normal,Volador,65,90,65,[38;2;57;148;148m
-23,Ekans,Veneno,,35,60,44,[38;2;57;148;148m
-24,Arbok,Veneno,,60,95,69,[38;2;57;148;148m
-25,Pikachu,Electrico,,35,55,40,
-26,Raichu,Electrico,,60,90,55,
-27,Sandshrew,Tierra,,50,75,85,
-28,Sandslash,Tierra,,75,100,110,
-29,Nidoran♀,Veneno,,55,47,52,
-30,Nidorina,Veneno,,70,62,67,
-31,Nidoqueen,Veneno,Tierra,90,92,87,
-32,Nidoran♂,Veneno,,46,57,40,
-33,Nidorino,Veneno,,61,72,57,
-34,Nidoking,Veneno,Tierra,81,102,77,
-35,Clefairy,Hada,,70,45,48,
-36,Clefable,Hada,,95,70,73,
-37,Vulpix,Fuego,,38,41,40,
-38,Ninetales,Fuego,,73,76,75,
-39,Jigglypuff,Normal,Hada,115,45,20,
-40,Wigglytuff,Normal,Hada,140,70,45,
-41,Zubat,Veneno,Volador,40,45,35,
-42,Golbat,Veneno,Volador,75,80,70,
-43,Oddish,Planta,Veneno,45,50,55,
-44,Gloom,Planta,Veneno,60,65,70,
-45,Vileplume,Planta,Veneno,75,80,85,
-46,Paras,Bicho,Planta,35,70,55,
-47,Parasect,Bicho,Planta,60,95,80,
-48,Venonat,Bicho,Veneno,60,55,50,
-49,Venomoth,Bicho,Veneno,70,65,60,
-50,Diglett,Tierra,,10,55,25,
+1,Bulbasaur,Planta,Veneno,45,49,49,[98, 213, 180;148;148m
+2,Ivysaur,Planta,Veneno,60,62,63,[90, 205, 189;148;148m
+3,Venusaur,Planta,Veneno,80,82,83,[16, 123, 106;148;148m
+4,Charmander,Fuego,,39,52,43,[222, 82, 57;148;148m
+5,Charmeleon,Fuego,,58,64,58,[255, 82, 74;148;148m
+6,Charizard,Fuego,Volador,78,84,78,[205, 82, 65;148;148m
+7,Squirtle,Agua,,44,48,65,[139, 197, 205;148;148m
+8,Wartortle,Agua,,59,63,80,[98, 123, 197;148;148m
+9,Blastoise,Agua,,79,83,100,[32, 98, 172;148;148m
+10,Caterpie,Bicho,,45,30,35,[106, 213, 49;148;148m
+11,Metapod,Bicho,,50,20,55,[131, 197, 74;148;148m
+12,Butterfree,Bicho,Volador,60,45,50,[49, 49, 82;148;148m
+13,Weedle,Bicho,Veneno,40,35,30,[238, 172, 65;148;148m
+14,Kakuna,Bicho,Veneno,45,25,50,[246, 205, 49;148;148m
+15,Beedrill,Bicho,Veneno,65,90,40,[255, 246, 164;148;148m
+16,Pidgey,Normal,Volador,40,45,40,[205, 131, 90;148;148m
+17,Pidgeotto,Normal,Volador,63,60,55,[230, 189, 90;148;148m
+18,Pidgeot,Normal,Volador,83,80,75,[172, 123, 90;148;148m
+19,Rattata,Normal,,30,56,35,[213, 156, 213;148;148m
+20,Raticate,Normal,,55,81,60,[197, 148, 57;148;148m
+21,Spearow,Normal,Volador,40,60,30,[172, 65, 74;148;148m
+22,Fearow,Normal,Volador,65,90,65,[213, 164, 90;148;148m
+23,Ekans,Veneno,,35,60,44,[164, 74, 139;148;148m
+24,Arbok,Veneno,,60,95,69,[123, 98, 172;148;148m
+25,Pikachu,Electrico,,35,55,40,[246, 189, 32;148;148m
+26,Raichu,Electrico,,60,90,55,[222, 123, 49;148;148m
+27,Sandshrew,Tierra,,50,75,85,[238, 222, 16;148;148m
+28,Sandslash,Tierra,,75,100,110,[213, 172, 32;148;148m
+29,Nidoran♀,Veneno,,55,47,52,[172, 172, 205;148;148m
+30,Nidorina,Veneno,,70,62,67,[197, 230, 238;148;148m
+31,Nidoqueen,Veneno,Tierra,90,92,87,[90, 180, 205;148;148m
+32,Nidoran♂,Veneno,,46,57,40,[230, 156, 213;148;148m
+33,Nidorino,Veneno,,61,72,57,[205, 131, 222;148;148m
+34,Nidoking,Veneno,Tierra,81,102,77,[213, 115, 238;148;148m
+35,Clefairy,Hada,,70,45,48,[255, 172, 172;148;148m
+36,Clefable,Hada,,95,70,73,[238, 148, 148;148;148m
+37,Vulpix,Fuego,,38,41,40,[189, 74, 41;148;148m
+38,Ninetales,Fuego,,73,76,75,[246, 230, 123;148;148m
+39,Jigglypuff,Normal,Hada,115,45,20,[230, 115, 131;148;148m
+40,Wigglytuff,Normal,Hada,140,70,45,[255, 172, 189;148;148m
+41,Zubat,Veneno,Volador,40,45,35,[98, 123, 180;148;148m
+42,Golbat,Veneno,Volador,75,80,70,[90, 172, 238;148;148m
+43,Oddish,Planta,Veneno,45,50,55,[115, 148, 164;148;148m
+44,Gloom,Planta,Veneno,60,65,70,[123, 131, 164;148;148m
+45,Vileplume,Planta,Veneno,75,80,85,[156, 57, 65;148;148m
+46,Paras,Bicho,Planta,35,70,55,[180, 98, 32;148;148m
+47,Parasect,Bicho,Planta,60,95,80,[180, 65, 57;148;148m
+48,Venonat,Bicho,Veneno,60,55,50,[98, 74, 123;148;148m
+49,Venomoth,Bicho,Veneno,70,65,60,[156, 139, 189;148;148m
+50,Diglett,Tierra,,10,55,25,[197, 115, 65;148;148m
 51,Dugtrio,Tierra,,35,100,50,
 52,Meowth,Normal,,40,45,35,
 53,Persian,Normal,,65,70,60,
