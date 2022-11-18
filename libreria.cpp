@@ -78,8 +78,11 @@ void cuenta::login(bool &sesion, string &nameC){
 }
 
 bool cuenta::compAdmin(){
-    ifstream archivo("admin/datosCuenta.txt");
-    return archivo.good();
+    if(nombre == "admin"){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 string cuenta::getName() {
@@ -374,7 +377,7 @@ void interfazCuenta::interfazAdmin(admin admin, bool &sesion, string &nameC){
                     {
                         system("color f0");
                     }else if(opt == 2){
-                        system("color db")
+                        system("color db");
                     }else{
                         system("color 0f");
                     }

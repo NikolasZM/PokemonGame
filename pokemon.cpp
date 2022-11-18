@@ -31,7 +31,15 @@ void Pokemon::getInfo() {
     cout<<"======================\nEspecie: "<<especie<<"\nTipo1: "<<tipo1<<"\nTipo2: "<<tipo2<<"\nVida: ";
     cout<<vida<<"\nAtaque: "<<ataque<<"\nDefensa: "<<defensa<<"\n======================\n";
 }
-
+/*
+void Pokemon::getSprite1(){
+    char s=219;
+    string pintar = "\x1b"+color;
+    cout <<pintar<<setw(sangria)<<s<<s<<s<<"\t\t"<<DF<<especie<<"\n";
+    cout <<pintar<<setw(sangria)<<s<<s<<s<<"\t\t"<<DF<<"Nivel: "<<nivel<<"\n";
+    cout <<pintar<<setw(sangria)<<s<<s<<s<<" \n"<<DF<<"\n";
+}
+*/
 string Pokemon::getEspecie() {
     return especie;
 }
@@ -51,9 +59,11 @@ void Pokemon::getSprite(int sangria) {
     //███
     char s=219;
     string pintar = "\x1b"+color;
-    cout <<pintar<<setw(sangria)<<s<<s<<s<<"\t\t"<<DF<<especie<<"\n";
-    cout <<pintar<<setw(sangria)<<s<<s<<s<<"\t\t"<<DF<<"Vida: "<<vida<<"\n";
-    cout <<pintar<<setw(sangria)<<s<<s<<s<<" \n"<<DF<<"\n";
+
+    cout <<pintar<<setw(sangria)<<"███"<<"\t\t"<<DF<<especie<<"\n";
+    cout <<pintar<<setw(sangria)<<"███"<<"\t\t"<<DF<<"Nivel "<<nivel<<"\n";
+    cout <<pintar<<setw(sangria)<<"███"<<"\t\t"<<DF<<"Vida: "<<vida<<"\n";
+    cout<<"======================\n";
 }
 
 Pokemon::~Pokemon() {}
@@ -69,7 +79,7 @@ Partida::Partida(string nameC) {
         nombre = nameC;
         lugar = "Ruta 1";
         delimitador = ',';
-
+        //cout << "Objeto partida creado\n";
         string nameArchivo = "DatosC.csv";
         ifstream archivo(nameArchivo.c_str());
         string linea;
@@ -180,53 +190,21 @@ void Partida::captura() {
     principal.getSprite(2);
 }
 
-string Partida::menuCaptura() {
-    int opt{0};
-    while (true) {
-    switch(opt) {
-        case 0:
-        cout<<"Que deseas hacer?\n";
-        cout<<"\t[1]Luchar.\n\t[2]Pokemon.\n\t[3]Capturar.\n\t[4]Huir.\n>>>";
-        opt = perdirOpt();
-        break;
-        case 1:
-        cout<<"Esta opcion aún no está disponible\n";
-        opt = 0;
-        break;
-        case 2:
-        cout<<"Esta opcion aún no está disponible\n"; 
-        opt = 0;
-        break;
-        case 3:
-        {
-            srand(time(NULL));
-            int randomNumber = rand() % 10;
-            if (randomNumber>7) {
-                cout<<salvaje.getEspecie()<<" fue capturado.\n";
-                return salvaje.getDataInfo();
-            }else {
-                cout<<salvaje.getEspecie()<<" se escapó\n";
-            }
-            opt = 0;
-            break;
-        }
-        case 4:
-        cout<<"Escapaste con éxito\n";
-        return "";
-        default:
-        break;
-    }
-    }
+bool Partida::menuCaptura(string &dataSalvaje) {
+    srand(time(NULL));
+    int randomNumber = rand() % 11;
+    if (randomNumber>6) {
+        cout<<salvaje.getEspecie()<<" fue capturado.\n";
+        dataSalvaje = salvaje.getDataInfo();
+        return true;
+    }else {
+        cout<<salvaje.getEspecie()<<" se escapó\n";
+        return false;
+    }        
 }
 
 
-int Partida::menuJuego () {
-    cout<<"Menu de Interacción\n";
-    cout << "==========" << lugar << "==========\n";
-    cout<<"\t[1]Capturar Pokemons.\n\t[2]Ver Pokemons.\n\t[3]Mapa.\n\t[4]Salir.\n>>>";
-    int opt = perdirOpt();
-    return opt;
-}
+
 
 int Partida::generaRuta(int &nivel) {
     for (int i{0};i<2;i++) {
@@ -258,6 +236,7 @@ int Partida::generaRuta(int &nivel) {
 }
 
 Partida::~Partida() {
+    //cout << "Objeto "<<nombre<<" destruido\n";
     string direccion = nombre+"/datos.txt";
     ofstream savePoke(direccion);
 
@@ -331,7 +310,9 @@ void Partida::mostrarPokemons() {
         int idInt=stoi(id);
         int vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa),nivelI=stoi(nivel);
         auxiliar.setInfo(idInt,especie,nivelI,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
-        auxiliar.getInfo();
+        cout<<"======================\n["<<i+1<<"]\n";
+
+        auxiliar.getSprite(2);
     }
 }
 
@@ -339,7 +320,7 @@ void Partida::mostrarPokemons() {
 //FUNCIONES GLOBALES
 
 
-void logoPoke() {
+void InterfazPartida::logoPoke() {
     system("cls");
     cout<<"\a";
     cout<<"\n                                  ,'\\   \n";
@@ -422,5 +403,117 @@ int perdirOpt(){
         }else{
             return opt;
         }
+    }
+}
+
+//InterfazPartida
+
+
+InterfazPartida::InterfazPartida() {
+    opt = 0;
+}
+
+
+
+
+void InterfazPartida::interfazJuego(Partida &jugador) {
+    
+    bool flag{true};
+
+    while (flag) {
+        switch (opt) {
+        case 0:
+            system("cls");
+            cout<<"Menu de Interacción\n==========" << jugador.lugar << "==========\n";
+            cout<<"\t[1]Capturar Pokemons.\n\t[2]Ver Pokemons.\n\t[3]Mapa.\n\t[4]Salir.\n>>> ";
+            opt = pedirOpt();
+            break;
+        case 1: {
+            int nivelRuta;
+            int idSalvaje;
+
+            idSalvaje = jugador.generaRuta(nivelRuta);
+            jugador.setSalvaje(nivelRuta,idSalvaje);
+            jugador.captura();
+            string infoCaptura = interfazCaptura(jugador);
+            system("pause");
+            if (infoCaptura == "") {
+                opt = 0;
+                continue;
+            }else {
+                jugador.savePokemon(infoCaptura);
+                opt = 0;
+            }
+            break;
+        }
+        case 2:
+            cout << "=======Tus Pokemons son:==========\n";
+            jugador.mostrarPokemons();
+            opt = 0;
+            system("pause");
+            break;
+
+        case 3:
+            cout<<"El mapa aún no está disponible.\n";
+            opt = 0;
+            system("pause");
+            break;
+        default:
+            flag = false;
+            break;
+        }
+    }
+}
+
+
+
+
+int InterfazPartida::pedirOpt(){
+    while(true){
+        int opt;
+        cin >> opt;
+        if( !cin.good() ){
+            cin.clear();
+            cin.ignore();
+            cout << "Solo valores numericos" << "\n";
+            system("cls");
+        }else{
+            return opt;
+        }
+    }
+}
+
+
+string InterfazPartida::interfazCaptura(Partida &jugador) {
+    string infoPoke;
+    opt = 0;
+    while (true) {
+    switch(opt) {
+        case 0:
+        cout<<"Que deseas hacer?\n";
+        cout<<"\t[1]Luchar.\n\t[2]Pokemon.\n\t[3]Capturar.\n\t[4]Huir.\n>>>";
+        opt = pedirOpt();
+        break;
+        case 1:
+        cout<<"Luchar aún no está disponible\n";
+        opt = 0;
+        break;
+        case 2:
+        cout<<"Cambiar de Pokemon aún no está disponible\n"; 
+        opt = 0;
+        break;
+        case 3:
+            if (jugador.menuCaptura(infoPoke)) {
+                return infoPoke;
+            }else {
+                opt=0;
+                break;
+            }
+        case 4:
+        cout<<"Escapaste con éxito\n";
+        return "";
+        default:
+        break;
+    }
     }
 }

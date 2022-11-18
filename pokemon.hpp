@@ -23,6 +23,8 @@ public:
     
     void getSprite(int sangria);
     
+    //void getSprite1();
+
     string getDataInfo();
     
     string getEspecie();
@@ -68,9 +70,7 @@ public:
 
     void captura();
 
-    string menuCaptura();
-
-    int menuJuego ();
+    bool menuCaptura(string &infoPoke);
 
     int generaRuta(int &nivel);
 
@@ -86,8 +86,23 @@ public:
 
 //string crearInicial(string archivoData);
 
-void logoPoke();
-
 //void introPoke(Partida &player);
 
 int perdirOpt();
+
+
+class InterfazPartida {
+public:
+
+    int opt;
+
+    void logoPoke();
+
+    InterfazPartida();
+
+    void interfazJuego(Partida &jugador);
+
+    string interfazCaptura(Partida &jugador);
+
+    int pedirOpt();
+};
