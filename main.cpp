@@ -9,6 +9,7 @@ int main() {
     usuario jugador;
     bool sesion{false};
     bool inicial{false};
+    bool bandera{false};
     string auxName;
 
     interfazCuenta interfazC;
@@ -17,9 +18,11 @@ int main() {
 
     interfazC.interfazAdmin(admin, sesion, auxName);
 
+    bandera = inicio.compAdmin();
+
     //juego
 
-    if (sesion) {
+    if ((sesion) && (!bandera)) {
         logoPoke();
         
         Partida jugador1(auxName);

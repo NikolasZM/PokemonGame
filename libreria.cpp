@@ -78,11 +78,8 @@ void cuenta::login(bool &sesion, string &nameC){
 }
 
 bool cuenta::compAdmin(){
-    if(nombre == "admin"){
-        return true;
-    }else{
-        return false;
-    }
+    ifstream archivo("admin/datosCuenta.txt");
+    return archivo.good();
 }
 
 string cuenta::getName() {
@@ -179,18 +176,10 @@ void usuario::crearCuenta(string &nameC){
 
 
 //  Class Admin
-
 admin::admin(){
     string nombreContrasena{"admin"};
     string direccion{"admin/datosCuenta.txt"};
-    string l;
 
-    ifstream usuarios("usuarios.txt");
-    while(getline(usuarios, l))
-    {
-
-        cuentas.push_back(l);
-    }
 
     if (comprobarArchivo(direccion)){
         return;
@@ -203,14 +192,19 @@ admin::admin(){
             datosCuenta << nombreContrasena << "\n";
 
         datosCuenta.close();
-        anadirTexto(nombreContrasena);
     }
 }
 
 void admin::mostrarCuentas(){
+
+    string l;
+
+    ifstream usuarios("usuarios.txt");
+    while(getline(usuarios, l))
+    {
+        cuentas.push_back(l);
+    }
             
-
-
     for (int i{1}; i < cuentas.size(); ++i)
     {
         cout << "[" << i << "]" << cuentas[i] << "\n";
@@ -355,25 +349,38 @@ void interfazCuenta::interfazAdmin(admin admin, bool &sesion, string &nameC){
         system("cls");
 
         opt = 0;
-        texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[Otro]Salir\n\t>>>> ";
+        texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[4]Modo\n\t[Otro]Salir\n\t>>>> ";
 
         perdirNum(opt, texto);
 
-        switch (opt-1)
-        {
-        case 0:
-            system("cls");
-            admin.mostrarCuentas();
-            break;
-        case 1:
-            admin.eliminarCuentas();
-            break;
-        case 2:
-            admin.entrarCuenta(sesion, nameC);
-            break;
-        default:
-            break;
-        }
-
+            switch (opt-1)
+            {
+            case 0:
+                system("cls");
+                admin.mostrarCuentas();
+                system("pause");
+                break;
+            case 1:
+                admin.eliminarCuentas();
+                break;
+            case 2:
+                admin.entrarCuenta(sesion, nameC);
+                break;
+            case 3:
+                opt = 0;
+                perdirNum(opt, "Modos:\n\t[1] WhiteMode\n\t[otros] Default\n\t>>>");
+    
+                    if (opt == 1)
+                    {
+                        system("color f0");
+                    }else{
+                        system("color 0f");
+                    }
+    
+                break;
+            default:
+                break;
+            }
+    
     }
 }

@@ -36,7 +36,8 @@ class admin : public cuenta
 {
 
     public:
-        vector<string> cuentas;
+
+        vector<string> cuentas{" "};
 
         admin();
 
