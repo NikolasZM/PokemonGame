@@ -368,11 +368,13 @@ void interfazCuenta::interfazAdmin(admin admin, bool &sesion, string &nameC){
                 break;
             case 3:
                 opt = 0;
-                perdirNum(opt, "Modos:\n\t[1] WhiteMode\n\t[otros] Default\n\t>>>");
+                perdirNum(opt, "Modos:\n\t[1] WhiteMode\n\t[2] PartyMode\n\t[otros] Default\n\t>>>");
     
                     if (opt == 1)
                     {
                         system("color f0");
+                    }else if(opt == 2){
+                        system("color db")
                     }else{
                         system("color 0f");
                     }
