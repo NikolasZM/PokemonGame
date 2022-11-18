@@ -15,7 +15,7 @@ int main() {
     
     interfazC.interfazInicio(jugador, inicio, admin, sesion, auxName, inicial);
 
-    interfazC.interfazAdmin(admin);
+    interfazC.interfazAdmin(admin, sesion, auxName);
 
     //juego
 

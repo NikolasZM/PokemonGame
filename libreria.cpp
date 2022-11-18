@@ -14,6 +14,12 @@ cuenta::cuenta(){
     edad = 0;
 }
 
+cuenta::cuenta(string _nombre){
+
+    nombre = _nombre;
+
+}
+
 void cuenta::anadirTexto(string nombre){
     ofstream usuarios;
 
@@ -220,6 +226,8 @@ void admin::eliminarCuentas(){
     string aux;
     string l;
 
+    mostrarCuentas();
+
     while(true){
         cout << "Escriba el numero de la cuenta que desea borrar: ";
         cin >> cuenta;
@@ -261,6 +269,34 @@ void admin::eliminarCuentas(){
 
             
     }
+}
+
+void admin::entrarCuenta(bool &sesion, string &nameC){
+
+    int cuenta;
+
+    mostrarCuentas();
+
+    while(true){
+        cout << "Escriba el numero de la cuenta que desea ingresar: ";
+        cin >> cuenta;
+
+        if( !cin.good() ){
+            cin.clear();
+            cin.ignore();
+            cout << "Solo valores numericos" << "\n";
+            system("cls");
+        }
+
+        nombre = cuentas[cuenta];
+        sesion = true;
+        nameC=nombre;
+        
+        break;
+
+    }
+
+
 }
 
 admin::~admin(){
@@ -312,7 +348,7 @@ void interfazCuenta::interfazInicio(usuario jugador,cuenta inicio, admin admin, 
     }
 }
 
-void interfazCuenta::interfazAdmin(admin admin){
+void interfazCuenta::interfazAdmin(admin admin, bool &sesion, string &nameC){
     if (bandera)
     {
     
@@ -333,6 +369,7 @@ void interfazCuenta::interfazAdmin(admin admin){
             admin.eliminarCuentas();
             break;
         case 2:
+            admin.entrarCuenta(sesion, nameC);
             break;
         default:
             break;

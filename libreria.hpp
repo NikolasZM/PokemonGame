@@ -16,6 +16,7 @@ class cuenta
         int edad;
 
         cuenta();
+        cuenta(string);
 
         void anadirTexto(string nombre);
 
@@ -42,6 +43,8 @@ class admin : public cuenta
         void mostrarCuentas();
 
         void eliminarCuentas();
+        
+        void entrarCuenta(bool &, string &);
     
         ~admin();
 
@@ -78,6 +81,6 @@ class interfazCuenta
 
         void interfazInicio(usuario jugador, cuenta inicio, admin admin, bool &sesion,string &nameC,bool &inicial);
 
-        void interfazAdmin(admin admin);
+        void interfazAdmin(admin admin, bool &, string &);
 
 };
