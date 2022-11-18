@@ -49,56 +49,56 @@
 48,Venonat,Bicho,Veneno,60,55,50,[98, 74, 123;148;148m
 49,Venomoth,Bicho,Veneno,70,65,60,[156, 139, 189;148;148m
 50,Diglett,Tierra,,10,55,25,[197, 115, 65;148;148m
-51,Dugtrio,Tierra,,35,100,50,
-52,Meowth,Normal,,40,45,35,
-53,Persian,Normal,,65,70,60,
-54,Psyduck,Agua,,50,52,48,
-55,Golduck,Agua,,80,82,78,
-56,Mankey,Lucha,,40,80,35,
-57,Primeape,Lucha,,65,105,60,
-58,Growlithe,Fuego,,55,70,45,
-59,Arcanine,Fuego,,90,110,80,
-60,Poliwag,Agua,,40,50,40,
-61,Poliwhirl,Agua,,65,65,65,
-62,Poliwrath,Agua,Lucha,90,95,95,
-63,Abra,Psiquico,,25,20,15,
-64,Kadabra,Psiquico,,40,35,30,
-65,Alakazam,Psiquico,,55,50,45,
-66,Machop,Lucha,,70,80,50,
-67,Machoke,Lucha,,80,100,70,
-68,Machamp,Lucha,,90,130,80,
-69,Bellsprout,Planta,Veneno,50,75,35,
-70,Weepinbell,Planta,Veneno,65,90,50,
-71,Victreebel,Planta,Veneno,80,105,65,
-72,Tentacool,Agua,Veneno,40,40,35,
-73,Tentacruel,Agua,Veneno,80,70,65,
-74,Geodude,Roca,Tierra,40,80,100,
-75,Graveler,Roca,Tierra,55,95,115,
-76,Golem,Roca,Tierra,80,120,130,
-77,Ponyta,Fuego,,50,85,55,
-78,Rapidash,Fuego,,65,100,70,
-79,Slowpoke,Agua,Psiquico,90,65,65,
-80,Slowbro,Agua,Psiquico,95,75,110,
-81,Magnemite,Electrico,Acero,25,35,70,
-82,Magneton,Electrico,Acero,50,60,95,
-83,Farfetch'd,Normal,Volador,52,90,55,
-84,Doduo,Normal,Volador,35,85,45,
-85,Dodrio,Normal,Volador,60,110,70,
-86,Seel,Agua,,65,45,55,
-87,Dewgong,Agua,Hielo,90,70,80,
-88,Grimer,Veneno,,80,80,50,
-89,Muk,Veneno,,105,105,75,
-90,Shellder,Agua,,30,65,100,
-91,Cloyster,Agua,Hielo,50,95,180,
-92,Gastly,Fantasma,Veneno,30,35,30,
-93,Haunter,Fantasma,Veneno,45,50,45,
-94,Gengar,Fantasma,Veneno,60,65,60,
-95,Onix,Roca,Tierra,35,45,160,
-96,Drowzee,Psiquico,,60,48,45,
-97,Hypno,Psiquico,,85,73,70,
-98,Krabby,Agua,,30,105,90,
-99,Kingler,Agua,,55,130,115,
-100,Voltorb,Electrico,,40,30,50,
+51,Dugtrio,Tierra,,35,100,50,[90, 49, 24;148;148m
+52,Meowth,Normal,,40,45,35,[90, 49, 24;148;148m
+53,Persian,Normal,,65,70,60,[90, 49, 24;148;148m
+54,Psyduck,Agua,,50,52,48,[90, 49, 24;148;148m
+55,Golduck,Agua,,80,82,78,[90, 49, 24;148;148m
+56,Mankey,Lucha,,40,80,35,[90, 49, 24;148;148m
+57,Primeape,Lucha,,65,105,60,[90, 49, 24;148;148m
+58,Growlithe,Fuego,,55,70,45,[90, 49, 24;148;148m
+59,Arcanine,Fuego,,90,110,80,[90, 49, 24;148;148m
+60,Poliwag,Agua,,40,50,40,[90, 49, 24;148;148m
+61,Poliwhirl,Agua,,65,65,65,[90, 49, 24;148;148m
+62,Poliwrath,Agua,Lucha,90,95,95,[90, 49, 24;148;148m
+63,Abra,Psiquico,,25,20,15,[90, 49, 24;148;148m
+64,Kadabra,Psiquico,,40,35,30,[90, 49, 24;148;148m
+65,Alakazam,Psiquico,,55,50,45,[90, 49, 24;148;148m
+66,Machop,Lucha,,70,80,50,[90, 49, 24;148;148m
+67,Machoke,Lucha,,80,100,70,[90, 49, 24;148;148m
+68,Machamp,Lucha,,90,130,80,[90, 49, 24;148;148m
+69,Bellsprout,Planta,Veneno,50,75,35,[90, 49, 24;148;148m
+70,Weepinbell,Planta,Veneno,65,90,50,[90, 49, 24;148;148m
+71,Victreebel,Planta,Veneno,80,105,65,[90, 49, 24;148;148m
+72,Tentacool,Agua,Veneno,40,40,35,[90, 49, 24;148;148m
+73,Tentacruel,Agua,Veneno,80,70,65,[90, 49, 24;148;148m
+74,Geodude,Roca,Tierra,40,80,100,[90, 49, 24;148;148m
+75,Graveler,Roca,Tierra,55,95,115,[90, 49, 24;148;148m
+76,Golem,Roca,Tierra,80,120,130,[90, 49, 24;148;148m
+77,Ponyta,Fuego,,50,85,55,[90, 49, 24;148;148m
+78,Rapidash,Fuego,,65,100,70,[90, 49, 24;148;148m
+79,Slowpoke,Agua,Psiquico,90,65,65,[90, 49, 24;148;148m
+80,Slowbro,Agua,Psiquico,95,75,110,[90, 49, 24;148;148m
+81,Magnemite,Electrico,Acero,25,35,70,[90, 49, 24;148;148m
+82,Magneton,Electrico,Acero,50,60,95,[90, 49, 24;148;148m
+83,Farfetch'd,Normal,Volador,52,90,55,[90, 49, 24;148;148m
+84,Doduo,Normal,Volador,35,85,45,[90, 49, 24;148;148m
+85,Dodrio,Normal,Volador,60,110,70,[90, 49, 24;148;148m
+86,Seel,Agua,,65,45,55,[90, 49, 24;148;148m
+87,Dewgong,Agua,Hielo,90,70,80,[90, 49, 24;148;148m
+88,Grimer,Veneno,,80,80,50,[90, 49, 24;148;148m
+89,Muk,Veneno,,105,105,75,[90, 49, 24;148;148m
+90,Shellder,Agua,,30,65,100,[90, 49, 24;148;148m
+91,Cloyster,Agua,Hielo,50,95,180,[90, 49, 24;148;148m
+92,Gastly,Fantasma,Veneno,30,35,30,[90, 49, 24;148;148m
+93,Haunter,Fantasma,Veneno,45,50,45,[90, 49, 24;148;148m
+94,Gengar,Fantasma,Veneno,60,65,60,[90, 49, 24;148;148m
+95,Onix,Roca,Tierra,35,45,160,[90, 49, 24;148;148m
+96,Drowzee,Psiquico,,60,48,45,[90, 49, 24;148;148m
+97,Hypno,Psiquico,,85,73,70,[90, 49, 24;148;148m
+98,Krabby,Agua,,30,105,90,[90, 49, 24;148;148m
+99,Kingler,Agua,,55,130,115,[90, 49, 24;148;148m
+100,Voltorb,Electrico,,40,30,50,[90, 49, 24;148;148m
 101,Electrode,Electrico,,60,50,70,
 102,Exeggcute,Planta,Psiquico,60,40,80,
 103,Exeggutor,Planta,Psiquico,95,95,85,
