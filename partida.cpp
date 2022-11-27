@@ -11,7 +11,7 @@ Partida::Partida(string nameC) {
         lugar = "Ruta 1";
         delimitador = ',';
 
-        string nameArchivo = "DatosC.csv";
+        string nameArchivo = "Datos.csv";
         ifstream archivo(nameArchivo.c_str());
         string linea;
         int i{0};
