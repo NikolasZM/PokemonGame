@@ -1,108 +1,78 @@
-#include <fstream>
 #include <iostream>
 #include <string>
-#include <sstream>
 #include <stdlib.h>
 #include <iomanip>
-#include <time.h>
-#include <vector>
+#include <sstream>
+#define DF "\x1B[39m"
+
 using namespace std;
 
-#define DF      "\x1B[39m"
+
+
+class Movimiento {
+public:
+
+    Movimiento();
+
+    void setInfo(string,int,string);
+    
+    string getName();
+
+    int getPotencia();
+
+    string getTipo();
+
+    ~Movimiento();
+
+private:
+    string nombre;
+    int potencia;
+    string tipo;
+};
+
 
 class Pokemon {
 public:
 
     Pokemon() ;
     
-    ~Pokemon() ;
-    
     void setInfo(int idPoke, string especiePoke,int nivelPok, int vidaPok,int ataquePok, int defensaPok, string tipo1Pok, string tipo2Pok,string colorPok);
     
-    void getInfo() ;
-    
-    void getSprite(int sangria);
-    
-    //void getSprite1();
+    void showInfo();
 
-    string getDataInfo();
-    
     string getEspecie();
-    
+
+    int getNivel();
+
+    int getVida();
+
+    int getAtaque();
+
+    int getDefensa();
+
+    string getInfo();
+
+    void showSprite(int);
+
+    void curar();
+
+    void daño(int);
+
+    bool compStab(int);
+
+    ~Pokemon() ;
+
+    Movimiento Mov[4];
+
 private:
     int iD;
     string especie;
     int nivel;
-    string tipo1;
-    string tipo2;
-    string color;
+    int vidaMax;
     int vida;
     int ataque;
     int defensa;
-};
-
-
-
-class Partida{
-public:
-
-    string nombre;
-    Pokemon salvaje;
-    Pokemon principal;
-    string lugar;
-    char delimitador;
-    vector<string> coleccionPokemon;
-    
-    string basePokemon[151][8];
-    string rutasInfo[2][10];
-    
-
-
-    Partida(string nameC);
-
-    void setPrincipal();
-
-    void getBase();
-
-    void savePokemon(string infoPokemon);
-
-    void setSalvaje(int niv, int salv) ;
-
-    void captura();
-
-    bool menuCaptura(string &infoPoke);
-
-    int generaRuta(int &nivel);
-
-    void introPoke();
-
-    string crearInicial();
-
-    void mostrarPokemons();
-
-    ~Partida();
-};
-
-
-//string crearInicial(string archivoData);
-
-//void introPoke(Partida &player);
-
-int perdirOpt();
-
-
-class InterfazPartida {
-public:
-
-    int opt;
-
-    void logoPoke();
-
-    InterfazPartida();
-
-    void interfazJuego(Partida &jugador);
-
-    string interfazCaptura(Partida &jugador);
-
-    int pedirOpt();
+    string tipo1;
+    string tipo2;
+    string color;
 };
