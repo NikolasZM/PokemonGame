@@ -1,5 +1,5 @@
 #include "libreria.hpp"
-#include "pokemon.hpp"
+#include "partida.hpp"
 
 int main() 
 {
