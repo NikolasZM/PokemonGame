@@ -183,6 +183,7 @@ admin::admin(){
     string nombreContrasena{"admin"};
     string direccion{"admin/datosCuenta.txt"};
 
+    cuentas = {" "};
 
     if (comprobarArchivo(direccion)){
         return;
@@ -210,6 +211,9 @@ void admin::mostrarCuentas(){
             
     for (int i{1}; i < cuentas.size(); ++i)
     {
+        if (cuentas[i-1].length() == 0){
+            break;
+        }
         cout << "[" << i << "]" << cuentas[i] << "\n";
     }
 
@@ -254,6 +258,9 @@ void admin::eliminarCuentas(){
                     break;
                 }    
 
+                if(cuentas[i] == " "){
+                    continue;
+                }
                 anadirTexto(cuentas[i]);
 
             }

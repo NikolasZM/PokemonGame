@@ -9,11 +9,12 @@ using namespace std;
 
 class cuenta
 {
-
-    public:
+    protected:
         string nombre;
         string contrasena;
         int edad;
+
+    public:
 
         cuenta();
         cuenta(string);
@@ -28,7 +29,7 @@ class cuenta
 
         string getName();
 
-        ~cuenta();
+        virtual ~cuenta();
 
 };
 
@@ -37,7 +38,7 @@ class admin : public cuenta
 
     public:
 
-        vector<string> cuentas{" "};
+        vector<string> cuentas{};
 
         admin();
 
