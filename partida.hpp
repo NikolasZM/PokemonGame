@@ -7,6 +7,8 @@
 #include <time.h>
 #include <vector>
 #define DF      "\x1B[39m"
+#define RED 	"\x1B[31m"
+#define	GREEN 	"\x1B[32m"
 #include "pokemon.hpp"
 
 using namespace std;
@@ -22,11 +24,11 @@ public:
 
     void setSalvaje(int,int);
 
-    void setLugar();
+    bool setLugar(int);
 
     void savePokemon(string);
 
-    bool menuCaptura(string &infoPoke);
+    bool capturar();
 
     int generaRuta(int &nivel);
 
@@ -34,7 +36,15 @@ public:
 
     void mostrarPokemons();
 
-    bool batalla(int);
+    void mostrarUnPokemon(int);
+
+    void changePrincipal(int);
+
+    bool compVida();
+
+    bool ataquePrincipal(int);
+
+    void ataqueSalvaje();
 
     string crearInicial();
 
@@ -66,9 +76,11 @@ public:
 
     void interfazJuego(Partida &jugador);
 
-    string interfazCaptura(Partida &jugador);
+    void interfazCaptura(Partida &jugador);
 
     int interfazLucha(Partida &jugador);
+
+    void interfazVerPokemons(Partida &jugador);
 
     int pedirOpt();
 

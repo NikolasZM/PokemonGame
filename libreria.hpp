@@ -29,6 +29,8 @@ class cuenta
 
         string getName();
 
+        int getEdad();
+
         virtual ~cuenta();
 
 };

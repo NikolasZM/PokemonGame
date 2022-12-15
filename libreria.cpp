@@ -89,6 +89,10 @@ string cuenta::getName() {
     return nombre;
 }
 
+int cuenta::getEdad() {
+    return edad;
+}
+
 cuenta::~cuenta(){
     nombre = "";
     contrasena = "";
@@ -355,44 +359,48 @@ void interfazCuenta::interfazInicio(usuario jugador,cuenta inicio, admin admin, 
 void interfazCuenta::interfazAdmin(admin admin, bool &sesion, string &nameC){
     if (bandera)
     {
-    
-        system("cls");
+        bool bandera2{true};
 
-        opt = 0;
-        texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[4]Modo\n\t[Otro]Salir\n\t>>>> ";
-
-        perdirNum(opt, texto);
-
-            switch (opt-1)
-            {
-            case 0:
-                system("cls");
-                admin.mostrarCuentas();
-                system("pause");
-                break;
-            case 1:
-                admin.eliminarCuentas();
-                break;
-            case 2:
-                admin.entrarCuenta(sesion, nameC);
-                break;
-            case 3:
-                opt = 0;
-                perdirNum(opt, "Modos:\n\t[1] WhiteMode\n\t[2] PartyMode\n\t[otros] Default\n\t>>>");
+        while(bandera2){
+            system("cls");
     
-                    if (opt == 1)
-                    {
-                        system("color f0");
-                    }else if(opt == 2){
-                        system("color db");
-                    }else{
-                        system("color 0f");
-                    }
+            opt = 0;
+            texto = "Que desea hacer:\n\t[1]Ver cuentas\n\t[2]Eliminar cuenta\n\t[3]Entrar a la cuenta\n\t[4]Modo\n\t[Otro]Salir\n\t>>>> ";
     
-                break;
-            default:
-                break;
-            }
+            perdirNum(opt, texto);
     
+                switch (opt-1)
+                {
+                case 0:
+                    system("cls");
+                    admin.mostrarCuentas();
+                    system("pause");
+                    break;
+                case 1:
+                    admin.eliminarCuentas();
+                    break;
+                case 2:
+                    admin.entrarCuenta(sesion, nameC);
+                    bandera2 = false;
+                    break;
+                case 3:
+                    opt = 0;
+                    perdirNum(opt, "Modos:\n\t[1] WhiteMode\n\t[2] PartyMode\n\t[otros] Default\n\t>>>");
+        
+                        if (opt == 1)
+                        {
+                            system("color f0");
+                        }else if(opt == 2){
+                            system("color db");
+                        }else{
+                            system("color 0f");
+                        }
+        
+                    break;
+                default:
+                    bandera2 = false;
+                    break;
+                }
+        }
     }
 }

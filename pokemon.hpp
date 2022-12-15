@@ -8,28 +8,49 @@
 using namespace std;
 
 
-
 class Movimiento {
 public:
 
     Movimiento();
 
-    void setInfo(string,int,string);
+    void setInfo(string,int);
     
     string getName();
 
-    int getPotencia();
-
-    string getTipo();
+    int getPrecision();
 
     ~Movimiento();
 
-private:
+
     string nombre;
+    int precision;
+    
+};
+
+class MovDaño : public Movimiento {
+public:
+
+    MovDaño();
+    void setInfo(int,int,string,string);
+    int getPotencia();
+    string getTipo();
+    ~MovDaño();
+
     int potencia;
     string tipo;
 };
 
+class MovEstado : public Movimiento {
+public:
+
+    MovEstado();
+    void setInfo(string,int,string);
+    string getEstadistica();
+    ~MovEstado();
+
+    string estadistica;
+
+};
 
 class Pokemon {
 public:
@@ -60,9 +81,10 @@ public:
 
     bool compStab(int);
 
-    ~Pokemon() ;
+    ~Pokemon();
 
-    Movimiento Mov[4];
+    MovDaño Mov1[2];
+    MovEstado Mov2[2];
 
 private:
     int iD;

@@ -7,53 +7,53 @@ using namespace std;
 
 
 Partida::Partida(string nameC) {
-        nombre = nameC;
-        lugar = "Ruta 1";
-        delimitador = ',';
+    
+    nombre = nameC;
+    lugar = "Ruta 1";
+    delimitador = ',';
+        
+    string nameArchivo = "Datos.csv";
+    ifstream archivo(nameArchivo.c_str());
+    string linea;
+    int i{0};
+    getline(archivo,linea);
 
-        string nameArchivo = "Datos.csv";
-        ifstream archivo(nameArchivo.c_str());
-        string linea;
-        int i{0};
-        getline(archivo,linea);
+    while(getline(archivo,linea)) {
+        stringstream stream(linea);
 
-        while(getline(archivo,linea)) {
-            stringstream stream(linea);
+        for (int j{0};j<8;j++) {
+            string auxiliar;
+            getline(stream,auxiliar,delimitador);
+            basePokemon[i][j] = auxiliar;            }
 
-            for (int j{0};j<8;j++) {
-                string auxiliar;
-                getline(stream,auxiliar,delimitador);
-                basePokemon[i][j] = auxiliar;
-            }
+    i++;
+    }
+    archivo.close();
 
-        i++;
+    nameArchivo = "rutas.csv";
+    ifstream rutas(nameArchivo.c_str());
+    i=0;
+    getline(rutas,linea);
+
+    while(getline(rutas,linea)) {
+        stringstream stream(linea);
+
+        for (int j{0};j<13;j++) {
+            string auxiliar;
+            getline(stream,auxiliar,delimitador);
+            rutasInfo[i][j] = auxiliar;
         }
-        archivo.close();
 
-        nameArchivo = "rutas.csv";
-        ifstream rutas(nameArchivo.c_str());
-        i=0;
-        getline(rutas,linea);
+    i++;
+    }
+    rutas.close();
 
-        while(getline(rutas,linea)) {
-            stringstream stream(linea);
+    string direccion = nombre+"/datos.txt";
+    ifstream coleccion(direccion);
 
-            for (int j{0};j<13;j++) {
-                string auxiliar;
-                getline(stream,auxiliar,delimitador);
-                rutasInfo[i][j] = auxiliar;
-            }
-
-        i++;
-        }
-        rutas.close();
-
-        string direccion = nombre+"/datos.txt";
-        ifstream coleccion(direccion);
-
-        while(getline(coleccion,linea)) {
-            coleccionPokemon.push_back(linea);
-        }
+    while(getline(coleccion,linea)) {
+        coleccionPokemon.push_back(linea);
+    }  
 }
 
 void Partida::setPrincipal() {
@@ -71,7 +71,6 @@ void Partida::setPrincipal() {
         getline(stream,color);
         int idInt=stoi(id), vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa),nivelI=stoi(nivel);
         principal.setInfo(idInt,especie,nivelI,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
-        principal.Mov[0].setInfo("Placaje",40,"Normal");
 }
 
 void Partida::setSalvaje(int niv, int idSal) {
@@ -90,7 +89,7 @@ void Partida::setSalvaje(int niv, int idSal) {
             color = basePokemon[i][7];
             int vidaInt=stoi(vida), ataqueI=stoi(ataque), defensaI=stoi(defensa);
             salvaje.setInfo(idInt,especie,niv,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
-            salvaje.Mov[0].setInfo("Placaje",40,"Normal");
+            
             break;
         }else {
             continue;
@@ -98,34 +97,30 @@ void Partida::setSalvaje(int niv, int idSal) {
     }
 }
 
-void Partida::setLugar() {
-    while(true) {
-        cout <<"A que lugar quieres ir?\n >>> ";
-        int opt = perdirOpt();
-        if ((opt>0)&&(opt<32)) {
-            lugar = rutasInfo[opt-1][0];
-            break;
+bool Partida::setLugar(int place) {
+        if ((place>0)&&(place<32)) {
+            lugar = rutasInfo[place-1][0];
+            return true;
         }else {
-            cout<<"Escoja un lugar valido.\n";
-            system("pause");
-            continue;
+            return false;
         }
-    }
 }
 
 void Partida::savePokemon(string infoPokemon) {
     coleccionPokemon.push_back(infoPokemon);
 }
 
-bool Partida::menuCaptura(string &dataSalvaje) {
+bool Partida::capturar() {
     srand(time(NULL));
     int randomNumber = rand() % 11;
     if (randomNumber>6) {
-        cout<<salvaje.getEspecie()<<" fue capturado.\n";
-        dataSalvaje = salvaje.getInfo();
+        
+        string dataSalvaje = salvaje.getInfo();
+        savePokemon(dataSalvaje);
         return true;
     }else {
-        cout<<salvaje.getEspecie()<<" se escapó\n";
+
+        system("pause");
         return false;
     }        
 }
@@ -136,12 +131,12 @@ int Partida::generaRuta(int &nivel) {
 
         if (nombreRuta==lugar) {
 
-            int random = stoi(rutasInfo[i][1]);
+            int random = 10;
             int lista[random];
-            nivel = stoi(rutasInfo[i][2]);
+            nivel = stoi(rutasInfo[i][1]);
 
             for (int j{0};j<random;j++) {
-                int idPoke=stoi(rutasInfo[i][j+3]);
+                int idPoke=stoi(rutasInfo[i][j+2]);
                 lista[j] = idPoke;
             }
 
@@ -183,30 +178,83 @@ void Partida::mostrarPokemons() {
     }
 }
 
-bool Partida::batalla(int noMove) {
-    int stab,variacion;
+void Partida::mostrarUnPokemon(int elec) {
+    Pokemon auxiliar;
+    if ((elec > 0) && (elec <= coleccionPokemon.size())) {
+        stringstream stream(coleccionPokemon[elec - 1]);
+        string id,especie,nivel,tipo1,tipo2,vida,ataque,defensa,color;
+        getline(stream,id,delimitador);
+        getline(stream,especie,delimitador);
+        getline(stream,nivel,delimitador);
+        getline(stream,tipo1,delimitador);
+        getline(stream,tipo2,delimitador);
+        getline(stream,vida,delimitador);
+        getline(stream,ataque,delimitador);
+        getline(stream,defensa,delimitador);
+        getline(stream,color);
+        int idInt=stoi(id),vidaInt=stoi(vida),ataqueI=stoi(ataque),defensaI=stoi(defensa),nivelI=stoi(nivel);
+        auxiliar.setInfo(idInt,especie,nivelI,vidaInt,ataqueI,defensaI,tipo1,tipo2,color);
+        auxiliar.showInfo();
+    }   
+}
+
+void Partida::changePrincipal(int elec) {
+    string aux;
+    aux = coleccionPokemon[0];
+    coleccionPokemon[0] = coleccionPokemon[elec-1];
+    coleccionPokemon[elec-1] = aux;
+    setPrincipal();
+}
+
+bool Partida::compVida() {
+    if (salvaje.getVida() == 0) {
+        cout << "El pokemon salvaje se debilitó.\n";
+        return false;
+    }else if(principal.getVida() == 0) {
+        cout << principal.getEspecie() << " se debilitó.\n";
+        return false;
+    }else {
+        return true;
+    }
+}
+
+bool Partida::ataquePrincipal(int noMove) {
+    int stab,variacion,precisar;
 
     if (principal.compStab(noMove)) {
         stab = 1.5;
     }else {
         stab = 1;
     }
-
+    
     srand(time(NULL));
-    variacion = rand() %  16 + 85;
+    precisar = rand() % 100;
+    if (precisar < principal.Mov1[noMove].getPrecision()) {
+        variacion = rand() %  16 + 85;
 
-    int daño = 0.01 * stab * 1 * variacion * ((((0.2 * principal.getNivel() + 1) * principal.getAtaque() * principal.Mov[noMove].getPotencia()) / (25 * salvaje.getDefensa()) )+2);
+        int daño = 0.01 * stab * 1 * variacion * ((((0.2 * principal.getNivel() + 1) * principal.getAtaque() * principal.Mov1[noMove].getPotencia()) / (25 * salvaje.getDefensa()) )+2);
 
-    salvaje.daño(daño);
-
-    if (salvaje.getVida() == 0) {
+        salvaje.daño(daño);
         return true;
     }else {
-        cout << salvaje.getEspecie() << " usó " << salvaje.Mov[noMove].getName() << "\n";
-        daño = 0.01 * stab * 1 * variacion * ((((0.2 * salvaje.getNivel() + 1) * salvaje.getAtaque() * salvaje.Mov[noMove].getPotencia()) / (25 * principal.getDefensa()) )+2);
-        principal.daño(daño);
         return false;
     }
+}
+
+void Partida::ataqueSalvaje() {
+    int daño,stab,variacion;
+
+    if (salvaje.compStab(0)) {
+        stab = 1.5;
+    }else {
+        stab = 1;
+    }
+    srand(time(NULL));
+    variacion = rand() %  16 + 85;
+    
+    cout << salvaje.getEspecie() << " usó " << salvaje.Mov1[0].getName() << "\n";
+        daño = 0.01 * stab * 1 * variacion * ((((0.2 * salvaje.getNivel() + 1) * salvaje.getAtaque() * salvaje.Mov1[0].getPotencia()) / (25 * principal.getDefensa()) )+2);
+        principal.daño(daño);
 }
 
 string Partida::crearInicial() {
@@ -304,7 +352,7 @@ void Partida::introPoke() {
 }
 
 Partida::~Partida() {
-    //cout << "Objeto "<<nombre<<" destruido\n";
+    
     string direccion = nombre+"/datos.txt";
     ofstream savePoke(direccion);
 
@@ -374,37 +422,38 @@ void InterfazPartida::interfazJuego(Partida &jugador) {
             opt = pedirOpt();
             break;
         case 1: {
+            system("cls");
             int nivelRuta;
             int idSalvaje;
 
             idSalvaje = jugador.generaRuta(nivelRuta);
             jugador.setSalvaje(nivelRuta,idSalvaje);
             cout<<"Un "<<jugador.salvaje.getEspecie()<<" salvaje apareció: \n";
-            string infoCaptura = interfazCaptura(jugador);
+            interfazCaptura(jugador);
             system("pause");
-            if (infoCaptura == "") {
-                opt = 0;
-                continue;
-            }else {
-                jugador.savePokemon(infoCaptura);
-                opt = 0;
-            }
+            opt=0;
             break;
         }
         case 2:
-            cout << "=======Tus Pokemons son:==========\n";
-            jugador.mostrarPokemons();
+            interfazVerPokemons(jugador);
             opt = 0;
-            system("pause");
             break;
-
         case 3:
             cout<<"=======El Mapa es:==========\n";
             jugador.showMap();
-            jugador.setLugar();
-            opt = 0;
-            system("pause");
-            break;
+            cout <<"A que lugar quieres ir?\n >>> ";
+            if (!jugador.setLugar(perdirOpt())) {
+                cout<<"Escoja un lugar valido.\n";
+                system("pause");
+                break;
+            }else {
+                opt = 0;
+                cout << "Viajaste con éxito";
+                system("pause");
+                break;
+            }
+
+            
         default:
             flag = false;
             break;
@@ -412,10 +461,14 @@ void InterfazPartida::interfazJuego(Partida &jugador) {
     }
 }
 
-string InterfazPartida::interfazCaptura(Partida &jugador) {
+
+void InterfazPartida::interfazCaptura(Partida &jugador) {
     string infoPoke;
     opt = 0;
-    while (true) {
+    int temp{1};
+    bool flag{true};
+    
+    while (flag) {
         switch(opt) {
             case 0:
             jugador.salvaje.showSprite(35);
@@ -426,35 +479,57 @@ string InterfazPartida::interfazCaptura(Partida &jugador) {
             opt = pedirOpt();
             break;
             case 1:
-            if (jugador.batalla(interfazLucha(jugador))) {
-                cout << "El Pokemon fue debilitado\n";
-                jugador.principal.curar();
-                return "";
+            if (jugador.ataquePrincipal(interfazLucha(jugador))) {
+                cout << GREEN <<"El ataque dio en el blanco.\n"<<DF;
+            }else {
+                cout << RED << "El ataque falló.\n" << DF;
+            }
+            if (!jugador.compVida()) {
+                opt = 4;
+                break;
+            }
+            jugador.ataqueSalvaje();
+            if (!jugador.compVida()) {
+                cout << GREEN << "Escapaste con tu Pokemon al centro Pokemon\n" << DF;
+                flag=false;
+                opt=0;
+                break;
             }
             system("pause");
             opt = 0;
             break;
             case 2:
-            cout<<"Cambiar de Pokemon aún no está disponible\n"; 
-            opt = 0;
+                cout << "=======Tus Pokemons son:==========\n";
+                jugador.mostrarPokemons();
+                cout << "Ingrese el número del Pokemon que va a ingresar: \n>>>";
+                temp = pedirOpt();
+                jugador.changePrincipal(temp);
+                system("cls");
+                opt = 0;
             break;
             case 3:
-                if (jugador.menuCaptura(infoPoke)) {
+            
+                if (jugador.capturar()) {
                     jugador.principal.curar();
-                    return infoPoke;
+                    flag = false;
+                    cout<<jugador.salvaje.getEspecie()<<" fue capturado.\n";
+                    break;
                 }else {
+                    cout<<jugador.salvaje.getEspecie()<<" se escapó\n";
                     opt=0;
+                    system("cls");
                     break;
                 }
             case 4:
             cout<<"Escapaste con éxito\n";
             jugador.principal.curar();
-            return "";
+            flag = false;
             default:
             opt = 0;
             break;
         }
     }
+    jugador.changePrincipal(temp);
 }
 
 
@@ -464,16 +539,20 @@ int InterfazPartida::interfazLucha(Partida &jugador) {
         switch(opt) {
             case 0:
                 cout << "=======Que deberia hacer "<<jugador.principal.getEspecie()<<"==========\n";
-                for (int i{0}; i<4; i++) {
-                    cout << "["<<i<<"]" << jugador.principal.Mov[i].getName() << " - " << jugador.principal.Mov[i].getTipo() << "\n";
+                for (int i{0}; i<2; i++) {
+                    cout << "["<<i+1<<"]" << jugador.principal.Mov1[i].getName() << " - " << jugador.principal.Mov1[i].getTipo() << "\n";
+                }
+                for (int i{0}; i<2; i++) {
+                    cout << "["<<i+3<<"]" << jugador.principal.Mov2[i].getName() << " - " << "\n";
                 }
                 cout << ">> ";
                 opt = pedirOpt();
                 break;
             case 1:
-            cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov[0].getName() << "\n";
+            cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov1[0].getName() << "\n";
             return 0;
             case 2:
+            cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov1[1].getName() << "\n";
             return 0;
             case 3:
             return 0;
@@ -485,6 +564,40 @@ int InterfazPartida::interfazLucha(Partida &jugador) {
         }
     }
 }
+
+void InterfazPartida::interfazVerPokemons(Partida &jugador) {
+    
+    opt = 0;
+    bool flag{true};
+    while (flag) {
+        switch(opt) {
+            case 0:
+                system("cls");
+                cout << "=======Tus Pokemons son:==========\n";
+                jugador.mostrarPokemons();
+                cout << "=======Que deseas hacer: ==========\n";
+                cout << "[1]Ver estadísticas de un Pokemon.\n[2]Cambiar de Pokemon principal.\n[3]Salir.\n>>> ";
+                opt = pedirOpt();
+                break;
+            case 1:
+                cout << "Ingrese el número del Pokemon que desea analizar:\n>> ";
+                jugador.mostrarUnPokemon(pedirOpt());
+                system("pause");
+                opt = 0;
+                break;
+            case 2:
+                cout << "Ingrese el número del nuevo Pokemon Principal: \n>>>";
+                jugador.changePrincipal(pedirOpt());
+                opt = 0;
+                break;
+            default:
+                flag = false;
+                break;
+        }
+    }
+    
+}
+
 
 
 int InterfazPartida::pedirOpt(){

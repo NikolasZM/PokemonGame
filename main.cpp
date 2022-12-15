@@ -26,22 +26,25 @@ int main()
     //juego
 
     if ((sesion) && (!bandera)) {
-
+        
+        
         Partida jugador1(auxName);
+        
         InterfazPartida interfazJ;
+        
         interfazJ.logoPoke();
         
+       
 
         
         if (inicial) {
+       
             jugador1.introPoke();
         }
 
-
         jugador1.setPrincipal();
-            //jugador1.getBase();
-        interfazJ.interfazJuego(jugador1);
 
+        interfazJ.interfazJuego(jugador1);
 
 
     }else {
