@@ -219,7 +219,7 @@ bool Partida::compVida() {
 }
 
 bool Partida::ataquePrincipal(int noMove, int &ataqueTem, int &defensaTem) {
-    cout << "Entrando a la funcion\nnoMove= "<<noMove<<"-"<<ataqueTem<<"-"<<defensaTem<<"\n";
+    
     int stab,variacion,precisar;
 if ((noMove == 0)||(noMove == 1)) {
     if (principal.compStab(noMove)) {
@@ -241,11 +241,11 @@ if ((noMove == 0)||(noMove == 1)) {
         return false;
     }
 }else if((noMove==2)||(noMove==3)) {
-    cout << "Entrando a la funcion\n2";
+    
     string stat=principal.Mov2[noMove-2].getEstadistica();
-    cout << "stat= "<<stat;
+    
     if (stat == "ataque"){
-        cout << "Entrando a la funcion2\n";
+        
         ataqueTem = ataqueTem * 1.25;
         return true;
     } else if (stat == "defensa") {
