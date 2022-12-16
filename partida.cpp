@@ -247,8 +247,10 @@ if ((noMove == 0)||(noMove == 1)) {
     if (stat == "ataque"){
         
         ataqueTem = ataqueTem * 1.25;
+        cout <<GREEN<< "El ataque de "<<principal.getEspecie()<<" subió."<<DF;
         return true;
     } else if (stat == "defensa") {
+        cout <<GREEN<< "La defensa de "<<salvaje.getEspecie()<<" bajó."<<DF;
         defensaTem = defensaTem * 0.75;
         return true;
     }else {
