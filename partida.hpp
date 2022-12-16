@@ -42,7 +42,7 @@ public:
 
     bool compVida();
 
-    bool ataquePrincipal(int);
+    bool ataquePrincipal(int,int &ataque,int &defensa);
 
     void ataqueSalvaje();
 

@@ -208,19 +208,20 @@ void Partida::changePrincipal(int elec) {
 
 bool Partida::compVida() {
     if (salvaje.getVida() == 0) {
-        cout << "El pokemon salvaje se debilitó.\n";
+        cout <<GREEN<< "El pokemon salvaje se debilitó.\n"<<DF;
         return false;
     }else if(principal.getVida() == 0) {
-        cout << principal.getEspecie() << " se debilitó.\n";
+        cout <<RED<< principal.getEspecie() << " se debilitó.\n"<<DF;
         return false;
     }else {
         return true;
     }
 }
 
-bool Partida::ataquePrincipal(int noMove) {
+bool Partida::ataquePrincipal(int noMove, int &ataqueTem, int &defensaTem) {
+    cout << "Entrando a la funcion\nnoMove= "<<noMove<<"-"<<ataqueTem<<"-"<<defensaTem<<"\n";
     int stab,variacion,precisar;
-
+if ((noMove == 0)||(noMove == 1)) {
     if (principal.compStab(noMove)) {
         stab = 1.5;
     }else {
@@ -232,13 +233,31 @@ bool Partida::ataquePrincipal(int noMove) {
     if (precisar < principal.Mov1[noMove].getPrecision()) {
         variacion = rand() %  16 + 85;
 
-        int daño = 0.01 * stab * 1 * variacion * ((((0.2 * principal.getNivel() + 1) * principal.getAtaque() * principal.Mov1[noMove].getPotencia()) / (25 * salvaje.getDefensa()) )+2);
+        int daño = 0.01 * stab * 1 * variacion * ((((0.2 * principal.getNivel() + 1) * ataqueTem * principal.Mov1[noMove].getPotencia()) / (25 * defensaTem) )+2);
 
         salvaje.daño(daño);
         return true;
     }else {
         return false;
     }
+}else if((noMove==2)||(noMove==3)) {
+    cout << "Entrando a la funcion\n2";
+    string stat=principal.Mov2[noMove-2].getEstadistica();
+    cout << "stat= "<<stat;
+    if (stat == "ataque"){
+        cout << "Entrando a la funcion2\n";
+        ataqueTem = ataqueTem * 1.25;
+        return true;
+    } else if (stat == "defensa") {
+        defensaTem = defensaTem * 0.75;
+        return true;
+    }else {
+        return false;
+    }
+
+}else {
+    return false;
+}
 }
 
 void Partida::ataqueSalvaje() {
@@ -467,7 +486,9 @@ void InterfazPartida::interfazCaptura(Partida &jugador) {
     opt = 0;
     int temp{1};
     bool flag{true};
-    
+    int ataqueTemp, defensaTemp;
+    ataqueTemp = jugador.principal.getAtaque();
+    defensaTemp = jugador.salvaje.getDefensa();
     while (flag) {
         switch(opt) {
             case 0:
@@ -479,8 +500,8 @@ void InterfazPartida::interfazCaptura(Partida &jugador) {
             opt = pedirOpt();
             break;
             case 1:
-            if (jugador.ataquePrincipal(interfazLucha(jugador))) {
-                cout << GREEN <<"El ataque dio en el blanco.\n"<<DF;
+            if (jugador.ataquePrincipal(interfazLucha(jugador),ataqueTemp,defensaTemp)) {
+                cout << GREEN <<"El ataque funcionó.\n"<<DF;
             }else {
                 cout << RED << "El ataque falló.\n" << DF;
             }
@@ -553,11 +574,13 @@ int InterfazPartida::interfazLucha(Partida &jugador) {
             return 0;
             case 2:
             cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov1[1].getName() << "\n";
-            return 0;
+            return 1;
             case 3:
-            return 0;
+            cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov2[0].getName() << "\n";
+            return 2;
             case 4:
-            return 0;
+            cout << jugador.principal.getEspecie() << " usó " <<jugador.principal.Mov2[1].getName() << "\n";
+            return 3;
             default:
             opt = 0;
             break;
